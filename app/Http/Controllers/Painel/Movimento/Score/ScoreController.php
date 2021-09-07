@@ -48,16 +48,16 @@ class ScoreController extends Controller
                         ->where('notas.status', 'A')
                         ->where(function($query) use ($data){
                             if ($data['role'] == 'Cliente') {
-                                $query->where('user_id', $data['user_id']);
+                                $query->where('notas.user_id', $data['user_id']);
 
                             } else if (($data['role'] == 'Franquia') && ($data['franquia_id'])) {
-                                $query->where('franquia_id', $data['franquia_id']);
+                                $query->where('notas.franquia_id', $data['franquia_id']);
 
                             } else if($data['role'] == 'Gestor') {
                                 return null;
 
                             } else {
-                                $query->where('franquia_id', '-0');
+                                $query->where('notas.franquia_id', '-0');
                             }
                         })
                         ->join('promocaos','notas.promocao_id','=','promocaos.id')
@@ -81,10 +81,20 @@ class ScoreController extends Controller
             $qtd_bilhetes = $user->bilhetes->where('promocao_id',$cliente->promocao_id)
                                     ->count();
 
-            $status_bilhetes = $user->bilhetes->where('promocao_id',$cliente->promocao_id)
-                                               ->whereNotNull('data_sorteio');
+            $status_bilhetes = $user->bilhetes->where('promocao_id',$cliente->promocao_id);
 
-            $bilhete_premiado = (count($status_bilhetes) > 0) ? (($status_bilhetes->where('status', 'S')->count() > 0) ? 'PREMIADO' : 'Não foi desta vez') : '---';
+            $bilhete_premiado = '---';
+
+            if(count($status_bilhetes) > 0) {
+                if($status_bilhetes->where('status', 'S')->count() > 0) {
+                    $bilhete_premiado = 'PREMIADO';
+
+                }else if($status_bilhetes->whereNotNull('data_encerramento')->count() > 0){
+                    $bilhete_premiado = 'Não foi desta vez';
+
+                }
+            }
+            
 
             $scores[$cont]['promocao'] = $promocao;
             $scores[$cont]['promocao_nome'] = $cliente->promocao_nome;
@@ -98,6 +108,42 @@ class ScoreController extends Controller
         }
 
         return view('painel.movimento.score.index', compact('user', 'scores'));
+    }
+
+
+
+    public function show(Promocao $promocao, User $user, Request $request)
+    {
+        if(Gate::denies('view_score')){
+            abort('403', 'Página não disponível');
+            //return redirect()->back();
+        }
+
+        $user_logado = Auth()->User();
+
+        $roles = $user_logado->roles;
+
+        if($roles->first()->name == 'Cliente' && $user_logado->id != $user->id){
+            abort('403', 'Página não disponível');
+
+        } else if($roles->first()->name == 'Franquia' 
+                   && (!$user_logado->franquia 
+                   || !in_array($user_logado->franquia->id, $user->notas->where('status', 'A')->pluck('franquia_id')->toArray())) ){
+            abort('403', 'Página não disponível');
+        }
+
+        $pontos = Ponto::whereIn('nota_id',$user->notas->where('promocao_id', $promocao->id)->where('status', 'A')->pluck('id'))
+                        ->get();
+
+        $bilhetes = $user->bilhetes->where('promocao_id',$promocao->id); 
+
+        $nome_cliente = $user->name;
+        
+        $user = Auth()->User();
+    
+    //    dd($pontos, $bilhetes);
+
+        return view('painel.movimento.score.show', compact('user', 'pontos', 'bilhetes', 'promocao', 'nome_cliente'));
     }
 
 

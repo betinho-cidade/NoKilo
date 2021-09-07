@@ -43,7 +43,7 @@
             <div class="card-body">
             <!-- FORMULÁRIO - INICIO -->
 
-            <h4 class="card-title">Formulário de Atualização - Promoão</h4>
+            <h4 class="card-title">Formulário de Atualização - Promoção</h4>
             <p class="card-title-desc">A Promoção cadastrada será a base das notas registradas pelo Cliente, bem como da geração dos bilhetes (número da sorte).</p>
             <form name="edit_promocao" method="POST" action="{{route('promocao.update', compact('promocao'))}}"  class="needs-validation"  novalidate>
                 @csrf
@@ -128,6 +128,83 @@
                 <button class="btn btn-primary" type="submit">Atualizar Cadastro</button>
             </form>
 
+            <p></p>
+            <div class="bg-soft-success p-3 rounded" style="margin-bottom:10px;">
+                <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Marcar Bilhere como Premiado</h5>
+            </div>
+
+            <!-- Nav tabs - LISTA - INI -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#ativa" role="tab">
+                        <span class="d-block d-sm-none"><i class="ri-checkbox-circle-line"></i></span>
+                        <span class="d-none d-sm-block">Bilhetes Gerados ( <code class="highlighter-rouge">{{$bilhetes->count()}}</code> )
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <!-- Nav tabs - LISTA - FIM -->
+
+            <!-- Tab panes -->
+            <div class="tab-content p-3 text-muted">
+
+            <!-- Nav tabs - LISTA - BILHETES - INI -->
+            <div class="tab-pane active" id="ativa" role="tabpanel">
+                <table id="dt_bilhetes" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Data Criação</th>
+                        <th>Número Sorte</th>
+                        <th>Status</th>
+                        <th>Encerramento</th>
+                        <th style="text-align:center;">Ações</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    @forelse($bilhetes as $bilhete)
+                    <tr>
+                        <td>{{$bilhete->user->name}}</td>
+                        <td>{{$bilhete->data_criacao_formatada}}</td>
+                        <td>{{$bilhete->numero_sorte}}</td>
+                        <td>{{$bilhete->status_descricao}}</td>
+                        <td>{{$bilhete->data_encerramento_formatada}}</td>
+                        <td style="text-align:center;">
+
+                        @can('bilhete_premiado')
+                            @if($bilhete->status == 'P')
+                                <a href="javascript:;" data-toggle="modal" onclick="bilhetePremiado('{{$promocao->id}}', '{{$bilhete->id}}')"
+                                    data-target="#modal-bilhete_premiado"><i class="mdi mdi-alpha-b-circle" style="color: crimson;font-size: 30px" title="Marcar o Bilhete como Premiado ?"></i></a>
+                                    <form action="" id="bilheteForm" method="post">
+                                    @csrf
+                                    @method('put')
+                                    </form>
+                                    @section('modal_target')"formSubmit();"@endsection
+                                    @section('modal_type')@endsection
+                                    @section('modal_name')"modal-bilhete_premiado"@endsection
+                                    @section('modal_msg_title')Deseja Marcar o Bilhete como Premiado ? @endsection
+                                    @section('modal_msg_description')Após a ação de marcação, não será mais permitida QUALQUER alteração, pois o cliente receberá uma notificação que o mesmo foi PREMIADO. @endsection
+                                    @section('modal_close')Fechar @endsection
+                                    @section('modal_save')Marcar Premiado @endsection
+                            @elseif($bilhete->status == 'S')
+                                <i class="mdi mdi-alpha-b-circle" style="color: green;font-size: 30px" title="Bilhete PREMIADO"></i>
+                            @endif
+                        @endcan
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="6">Nenhum registro encontrado</td>
+                    </tr>
+                    @endforelse
+                    </tbody>
+                </table>
+            </div>
+            <!-- Nav tabs - LISTA - BILHETES - FIM -->
+            </div>
+
+
             <!-- FORMULÁRIO - FIM -->
             </div>
         </div>
@@ -136,67 +213,51 @@
 
 @endsection
 
-@section('head-css')
-    <link href="{{asset('nazox/assets/libs/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
-@endsection
-
-
 @section('script-js')
-    <script src="{{asset('nazox/assets/js/pages/form-validation.init.js')}}"></script>
-    <script src="{{asset('nazox/assets/libs/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
-    <script src="{{asset('nazox/assets/js/pages/form-element.init.js')}}"></script>
-    <script src="{{asset('nazox/assets/libs/select2/js/select2.min.js')}}"></script>
-    <!-- form mask -->
-    <script src="{{asset('nazox/assets/libs/inputmask/jquery.inputmask.min.js')}}"></script>
+    <!-- Required datatable js -->
+    <script src="{{asset('nazox/assets/libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('nazox/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <!-- Responsive examples -->
+    <script src="{{asset('nazox/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('nazox/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
+   <!-- Datatable init js -->
+    <script src="{{asset('nazox/assets/js/pages/datatables.init.js')}}"></script>
+
+    @if($bilhetes->count() > 0)
+        <script>
+            var table_AD = $('#dt_bilhetes').DataTable({
+                language: {
+                    url: '{{asset('nazox/assets/localisation/pt_br.json')}}'
+                },
+                "order": [[ 0, "asc" ]],
+                {{--  columnDefs: [
+                    {
+                        targets: [ 0 ],
+                        visible: false,
+                    },
+                ],  --}}
+            });
+        </script>
+    @endif
+
 
     <script>
-		$(document).ready(function(){
-			$('.mask_cep').inputmask('99.999-999');
-            $('.select2').select2();
-		});
-	</script>
+       function bilhetePremiado(promocao, bilhete)
+       {
+            var promocao = promocao;
+            var bilhete = bilhete;
 
-    <script type='text/javascript'>
-        $(document).ready(function(){
-            $('.dynamic_cep').change(function(){
+            var url = '{{ route('promocao.bilhete_premiado', [':promocao', ':bilhete']) }}';
+            url = url.replace(':promocao', promocao);
+            url = url.replace(':bilhete', bilhete);
+            $("#bilheteForm").attr('action', url);
+        }   
 
-                if ($(this).val() != ''){
-                    document.getElementById("img-loading-cep").style.display = '';
-
-                    var cep = $('#end_cep').val();
-                    var _token = $('input[name="_token"]').val();
-
-                    $('#end_logradouro').val('');
-                    $('#end_complemento').val('');
-                    $('#end_numero').val('');
-                    $('#end_bairro').val('');
-                    $('#end_cidade').val('');
-                    $('#end_uf').val('');
-
-                    $.ajax({
-                        url: "{{route('franquia.js_viacep')}}",
-                        method: "POST",
-                        data: {_token:_token, cep:cep},
-                        success:function(result){
-                            dados = JSON.parse(result);
-                            if(dados==null || dados['error'] == 'true'){
-                                    console.log(dados);
-                            } else{
-                                    $('#end_logradouro').val(dados['logradouro']);
-                                    $('#end_complemento').val(dados['complemento']);
-                                    $('#end_bairro').val(dados['bairro']);
-                                    $('#end_cidade').val(dados['localidade']);
-                                    $('#end_uf').val(dados['uf']);
-                            }
-                            document.getElementById("img-loading-cep").style.display = 'none';
-                        },
-                        error:function(erro){
-                            document.getElementById("img-loading-cep").style.display = 'none';
-                        }
-                    })
-                }
-            });
-        });
+       function formSubmit()
+       {
+           $("#bilheteForm").submit();
+       }
+      
     </script>
 
 @endsection

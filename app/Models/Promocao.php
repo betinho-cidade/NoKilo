@@ -28,7 +28,7 @@ class Promocao extends Model
 
     public function bilhetes()
     {
-        return $this->hasMany('App\Models\Bilhetes');
+        return $this->hasMany('App\Models\Bilhete');
     }
 
     public function getDataInicioFormatadaAttribute()

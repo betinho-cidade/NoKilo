@@ -17,7 +17,7 @@ class CreateBilhetesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('promocao_id');
             $table->unsignedBigInteger('user_id');
-            $table->datetime('data_sorteio')->nullable();
+            $table->datetime('data_encerramento')->nullable();
             $table->string('numero_sorte', 50);
             $table->enum('status', ['P', 'S', 'N'])->default('P');  //P->Pendente  S->Sorteado   N->Não Sorteado
             $table->timestamps();

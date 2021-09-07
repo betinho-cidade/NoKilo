@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Promocao;
+use App\Models\Bilhete;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Exception;
@@ -118,8 +119,10 @@ class PromocaoController extends Controller
 
         $user = Auth()->User();
 
+        $bilhetes = $promocao->bilhetes;
 
-        return view('painel.cadastro.promocao.show', compact('user', 'promocao'));
+
+        return view('painel.cadastro.promocao.show', compact('user', 'promocao', 'bilhetes'));
     }
 
 
@@ -146,6 +149,24 @@ class PromocaoController extends Controller
             $promocao->pontuacao = $request->pontuacao;
 
             $promocao->save();
+
+            if($promocao->status == 'F'){
+                
+                $promocao->data_fim = ($promocao->data_fim) ? $promocao->data_fim : Carbon::now();
+                $promocao->save();
+
+                Bilhete::where('promocao_id', $promocao->id)
+                        ->whereNull('data_encerramento')
+                        ->update([
+                            'data_encerramento' => Carbon::now()
+                        ]);
+                
+                Bilhete::where('promocao_id', $promocao->id)
+                        ->where('status', 'P')
+                        ->update([
+                            'status' => 'N'
+                        ]);
+            }
 
             DB::commit();
 
@@ -208,6 +229,45 @@ class PromocaoController extends Controller
         }
 
         return redirect()->route('promocao.index');
+    }
+
+
+    public function bilhete_premiado(Promocao $promocao, Bilhete $bilhete, Request $request){
+
+        if(Gate::denies('bilhete_premiado')){
+            abort('403', 'Página não disponível');
+        }
+
+        $user = Auth()->User();
+
+        $message = ''; 
+
+        try {
+            DB::beginTransaction();
+
+            $bilhete->status = 'S';
+
+            $bilhete->save();
+
+            DB::commit();
+
+        } catch (Exception $ex){
+
+            DB::rollBack();
+
+            $message = "Erro desconhecido, por gentileza, entre em contato com o administrador. ".$ex->getMessage();
+        }
+
+        if ($message && $message !='') {
+            $request->session()->flash('message.level', 'danger');
+            $request->session()->flash('message.content', $message);
+        } else {
+            $request->session()->flash('message.level', 'success');
+            $request->session()->flash('message.content', 'O Bilhete <code class="highlighter-rouge">'. $bilhete->numero_sorte .'</code> foi marcado como PREMIADO');
+        }
+
+        return redirect()->route('promocao.show', compact('promocao'));
+
     }
 
 }

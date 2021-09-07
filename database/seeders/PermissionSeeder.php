@@ -139,6 +139,13 @@ class PermissionSeeder extends Seeder
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],
+                [
+                    'id' => 19,
+                    'name' => 'bilhete_premiado',
+                    'description' => 'Marcar bilhete como Premiado',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],                
 
             ]);
         } else {

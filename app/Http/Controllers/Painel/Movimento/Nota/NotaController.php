@@ -166,7 +166,7 @@ class NotaController extends Controller
         if($roles->first()->name == 'Cliente'){
             abort('403', 'Página não disponível');
 
-        } else if($roles->first()->name == 'Franquia' && !$user->franquia && $user->franquia->id != $nota->franquia_id ){
+        } else if($roles->first()->name == 'Franquia' && (!$user->franquia || $user->franquia->id != $nota->franquia_id) ){
             abort('403', 'Página não disponível');
         }
 
@@ -189,7 +189,7 @@ class NotaController extends Controller
         if($roles->first()->name == 'Cliente'){
             abort('403', 'Página não disponível');
 
-        } else if($roles->first()->name == 'Franquia' && !$user->franquia && $user->franquia->id != $nota->franquia_id ){
+        } else if($roles->first()->name == 'Franquia' && (!$user->franquia || $user->franquia->id != $nota->franquia_id) ){
             abort('403', 'Página não disponível');
 
         } else if($nota->status =='A'){

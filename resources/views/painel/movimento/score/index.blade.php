@@ -66,7 +66,15 @@
                             <td>{{$score['qtd_pontos']}}</td>
                             <td>{{$score['qtd_bilhetes']}}</td>
                             <td>{{$score['promocao_status']}}</td>
-                            <td>{{$score['bilhete_premiado']}}</td>
+                            <td>
+                                @if($score['bilhete_premiado'] == 'PREMIADO')
+                                    <span class="avatar-title bg-success">
+                                        {{$score['bilhete_premiado']}}
+                                    </span>
+                                @else
+                                    {{$score['bilhete_premiado']}}
+                                @endif
+                            </td>
                             <td style="text-align:center;">
 
                             @can('view_score')
@@ -78,7 +86,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5">Nenhum registro encontrado</td>
+                            <td colspan="7">Nenhum registro encontrado</td>
                         </tr>
                         @endforelse
                         </tbody>

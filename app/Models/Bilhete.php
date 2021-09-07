@@ -36,9 +36,9 @@ class Bilhete extends Model
         return ($this->created_at) ? date('d/m/Y', strtotime($this->created_at)) : '';
     }
 
-    public function getDataSorteioFormatadaAttribute()
+    public function getDataEncerramentoFormatadaAttribute()
     {
-        return ($this->data_sorteio) ? date('d/m/Y', strtotime($this->data_sorteio)) : '';
+        return ($this->data_encerramento) ? date('d/m/Y', strtotime($this->data_encerramento)) : '---';
     }
 
     public function getStatusDescricaoAttribute()
@@ -52,7 +52,7 @@ class Bilhete extends Model
                     break;
                 }
             case 'S': {
-                    $status = 'Sorteado';
+                    $status = 'PREMIADO';
                     break;
                 }
             case 'N': {

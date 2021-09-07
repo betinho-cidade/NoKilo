@@ -55,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/promocao/{promocao}', 'PromocaoController@show')->name('promocao.show');
                 Route::put('/promocao/{promocao}/update', 'PromocaoController@update')->name('promocao.update');
                 Route::delete('/promocao/{promocao}/destroy', 'PromocaoController@destroy')->name('promocao.destroy');
+                Route::put('/promocao/{promocao}/bilhete_premiado/{bilhete}', 'PromocaoController@bilhete_premiado')->name('promocao.bilhete_premiado');                                
             });
         });
 
@@ -70,7 +71,7 @@ Route::middleware(['auth'])->group(function () {
             });
             Route::group(['namespace' => 'Score'], function(){
                 Route::get('/score', 'ScoreController@index')->name('score.index');
-                Route::get('/score/{promocao}/{user}/show', 'ScoreController@show')->name('score.show');
+                Route::get('/score/promocao/{promocao}/cliente/{user}/show', 'ScoreController@show')->name('score.show');
             });
         });
 
