@@ -120,7 +120,19 @@ class PermissionRoleSeeder extends Seeder
                     'role_id' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
-                ],                
+                ],
+                [
+                    'permission_id' => 20,
+                    'role_id' => 1,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'permission_id' => 21,
+                    'role_id' => 1,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
                 [
                     'permission_id' => 1,
                     'role_id' => 2,
@@ -141,6 +153,18 @@ class PermissionRoleSeeder extends Seeder
                 ],
                 [
                     'permission_id' => 18,
+                    'role_id' => 2,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'permission_id' => 20,
+                    'role_id' => 2,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'permission_id' => 21,
                     'role_id' => 2,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
@@ -171,6 +195,18 @@ class PermissionRoleSeeder extends Seeder
                 ],
                 [
                     'permission_id' => 18,
+                    'role_id' => 3,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'permission_id' => 20,
+                    'role_id' => 3,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'permission_id' => 21,
                     'role_id' => 3,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),

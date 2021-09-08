@@ -15,14 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/logout', 'HomeController@logout')->name('logout')->middleware('auth');
-
 Route::post('/js_viacep', 'Painel\PainelController@js_viacep')->name('painel.js_viacep');
-//Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-//Route::get('/', 'Painel\PainelController@index')->name('painel')->middleware('auth');
-
 
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/logout', 'HomeController@logout')->name('logout');
 
     Route::get('/home', 'HomeController@index')->name('home');
 
@@ -31,6 +28,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', 'PainelController@index')->name('painel');
 
         Route::group(['namespace' => 'Cadastro'], function(){
+            Route::group(['namespace' => 'Cliente'], function(){
+                Route::get('/cliente/{user}', 'ClienteController@show')->name('cliente.show');
+                Route::put('/cliente/{user}/update', 'ClienteController@update')->name('cliente.update');
+            });
             Route::group(['namespace' => 'Usuario'], function(){
                 Route::get('/usuario', 'UsuarioController@index')->name('usuario.index');
                 Route::get('/usuario/create', 'UsuarioController@create')->name('usuario.create');
@@ -55,7 +56,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/promocao/{promocao}', 'PromocaoController@show')->name('promocao.show');
                 Route::put('/promocao/{promocao}/update', 'PromocaoController@update')->name('promocao.update');
                 Route::delete('/promocao/{promocao}/destroy', 'PromocaoController@destroy')->name('promocao.destroy');
-                Route::put('/promocao/{promocao}/bilhete_premiado/{bilhete}', 'PromocaoController@bilhete_premiado')->name('promocao.bilhete_premiado');                                
+                Route::put('/promocao/{promocao}/bilhete_premiado/{bilhete}', 'PromocaoController@bilhete_premiado')->name('promocao.bilhete_premiado');
             });
         });
 
@@ -82,10 +83,10 @@ Route::middleware(['auth'])->group(function () {
 //** Páginas de Acesso pelo Portal, para cadastro de novos Membros **/
 Route::group(['namespace' => 'Guest'], function(){
 
-    Route::group(['namespace' => 'Cadastro\Visitante'], function(){
-        Route::get('/visitante', 'VisitanteController@create')->name('visitante.create');
-        Route::post('/visitante/store', 'VisitanteController@store')->name('visitante.store');
-        Route::post('/visitante/js_viacep', 'VisitanteController@js_viacep')->name('visitante.js_viacep');
+    Route::group(['namespace' => 'Cadastro\Cliente'], function(){
+        Route::get('/novo_cliente', 'ClienteController@create')->name('cliente.create');
+        Route::post('/novo_cliente/create', 'ClienteController@store')->name('cliente.store');
+        Route::get('/novo_cliente/bemvindo', 'ClienteController@bemvindo')->name('cliente.bemvindo');
     });
 });
 

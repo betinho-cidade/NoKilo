@@ -19,6 +19,9 @@ use App\Http\Requests\Movimento\Nota\CreateRequest;
 use App\Http\Requests\Movimento\Nota\UpdateRequest;
 use Image;
 use Carbon\Carbon;
+use App\Mail\SendStatusNota;
+use App\Mail\SendBilhete;
+use Illuminate\Support\Facades\Mail;
 
 
 class NotaController extends Controller
@@ -197,6 +200,7 @@ class NotaController extends Controller
         }
 
         $message = '';
+        $bilhetes = [];
 
         try {
 
@@ -248,11 +252,40 @@ class NotaController extends Controller
                         $bilhete->numero_sorte = Carbon::now()->format('YmdHisu');
 
                         $bilhete->save();
+
+                        $bilhetes[$i] = $bilhete;
                     }
                 }
             }
 
+            // foreach($bilhetes as $bilhete){
+            //     dd($bilhete, $bilhetes);
+            // }
+            // dd($bilhetes);
+
             DB::commit();
+
+            if($nota->status == 'R'){
+                try{
+                    Mail::to($nota->user->email)->send(new SendStatusNota($nota));
+                } catch(Exception $ex)
+                {}
+
+            } else if($nota->status == 'A'){
+                try{
+                    Mail::to($nota->user->email)->send(new SendStatusNota($nota));
+                } catch(Exception $ex)
+                {}
+
+                foreach($bilhetes as $bilhete){
+                    try{
+                        Mail::to($bilhete->user->email)->send(new SendBilhete($bilhete));
+                    } catch(Exception $ex)
+                    {}
+                }
+            }
+
+
 
         } catch (Exception $ex){
 

@@ -145,7 +145,21 @@ class PermissionSeeder extends Seeder
                     'description' => 'Marcar bilhete como Premiado',
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
-                ],                
+                ],
+                [
+                    'id' => 20,
+                    'name' => 'view_cliente',
+                    'description' => 'Acessar as informações do Cliente do sistema',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
+                [
+                    'id' => 21,
+                    'name' => 'edit_cliente',
+                    'description' => 'Alterar as informações do Cliente do sistema',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
 
             ]);
         } else {

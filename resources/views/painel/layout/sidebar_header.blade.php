@@ -128,8 +128,8 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <!-- item-->
-                                {{-- <a class="dropdown-item" href="#"><i class="ri-user-line align-middle mr-1"></i> Meus Dados</a>
-                                <div class="dropdown-divider"></div> --}}
+                                <a class="dropdown-item" href="{{ route('cliente.show', compact('user')) }}"><i class="ri-user-line align-middle mr-1"></i> Meus Dados</a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-danger" href="{{route('logout')}}"><i class="ri-shut-down-line align-middle mr-1 text-danger"></i> Sair</a>
                             </div>
                         </div>
