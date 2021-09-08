@@ -105,6 +105,15 @@ class NotaController extends Controller
             abort('403', 'Página não disponível');
         }
 
+        $promocao = Promocao::where('id', $request->promocao)->first();
+        if($promocao->status == 'F'){
+            $message = 'Não foi possível enviar a Nota Fiscal, pois a promoção "'.strToUpper($promocao->nome).'" já foi finalizada';
+            $request->session()->flash('message.level', 'danger');
+            $request->session()->flash('message.content', $message);
+
+            return redirect()->route('nota.index');
+        }
+
         $message = '';
 
         try {
@@ -198,6 +207,16 @@ class NotaController extends Controller
         } else if($nota->status =='A'){
             abort('403', 'Página não disponível');
         }
+
+        $promocao = Promocao::where('id', $nota->promocao->id)->first();
+        if($promocao->status == 'F'){
+            $message = 'Não foi possível alterar a Nota Fiscal, pois a promoção "'.strToUpper($promocao->nome).'" já foi finalizada';
+            $request->session()->flash('message.level', 'danger');
+            $request->session()->flash('message.content', $message);
+
+            return redirect()->route('nota.index');
+        }
+
 
         $message = '';
         $bilhetes = [];

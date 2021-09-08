@@ -151,7 +151,7 @@ class PromocaoController extends Controller
             $promocao->save();
 
             if($promocao->status == 'F'){
-                
+
                 $promocao->data_fim = ($promocao->data_fim) ? $promocao->data_fim : Carbon::now();
                 $promocao->save();
 
@@ -160,7 +160,7 @@ class PromocaoController extends Controller
                         ->update([
                             'data_encerramento' => Carbon::now()
                         ]);
-                
+
                 Bilhete::where('promocao_id', $promocao->id)
                         ->where('status', 'P')
                         ->update([
@@ -240,7 +240,15 @@ class PromocaoController extends Controller
 
         $user = Auth()->User();
 
-        $message = ''; 
+        $message = '';
+
+        if($promocao->status == 'F'){
+            $message = 'Não foi possível PREMIAR o bilhete, pois a promoção "'.strToUpper($promocao->nome).'" já foi finalizada';
+            $request->session()->flash('message.level', 'danger');
+            $request->session()->flash('message.content', $message);
+
+            return redirect()->route('promocao.show', compact('promocao'));
+        }
 
         try {
             DB::beginTransaction();

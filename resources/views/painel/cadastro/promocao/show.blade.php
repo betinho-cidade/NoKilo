@@ -173,7 +173,7 @@
                         <td style="text-align:center;">
 
                         @can('bilhete_premiado')
-                            @if($bilhete->status == 'P')
+                            @if($bilhete->status == 'P' && $promocao->status == 'A')
                                 <a href="javascript:;" data-toggle="modal" onclick="bilhetePremiado('{{$promocao->id}}', '{{$bilhete->id}}')"
                                     data-target="#modal-bilhete_premiado"><i class="mdi mdi-alpha-b-circle" style="color: crimson;font-size: 30px" title="Marcar o Bilhete como Premiado ?"></i></a>
                                     <form action="" id="bilheteForm" method="post">
@@ -251,13 +251,13 @@
             url = url.replace(':promocao', promocao);
             url = url.replace(':bilhete', bilhete);
             $("#bilheteForm").attr('action', url);
-        }   
+        }
 
        function formSubmit()
        {
            $("#bilheteForm").submit();
        }
-      
+
     </script>
 
 @endsection

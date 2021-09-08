@@ -94,7 +94,7 @@ class ScoreController extends Controller
 
                 }
             }
-            
+
 
             $scores[$cont]['promocao'] = $promocao;
             $scores[$cont]['promocao_nome'] = $cliente->promocao_nome;
@@ -126,8 +126,8 @@ class ScoreController extends Controller
         if($roles->first()->name == 'Cliente' && $user_logado->id != $user->id){
             abort('403', 'Página não disponível');
 
-        } else if($roles->first()->name == 'Franquia' 
-                   && (!$user_logado->franquia 
+        } else if($roles->first()->name == 'Franquia'
+                   && (!$user_logado->franquia
                    || !in_array($user_logado->franquia->id, $user->notas->where('status', 'A')->pluck('franquia_id')->toArray())) ){
             abort('403', 'Página não disponível');
         }
@@ -135,13 +135,12 @@ class ScoreController extends Controller
         $pontos = Ponto::whereIn('nota_id',$user->notas->where('promocao_id', $promocao->id)->where('status', 'A')->pluck('id'))
                         ->get();
 
-        $bilhetes = $user->bilhetes->where('promocao_id',$promocao->id); 
+        $bilhetes = $user->bilhetes->where('promocao_id',$promocao->id);
 
         $nome_cliente = $user->name;
-        
+
         $user = Auth()->User();
-    
-    //    dd($pontos, $bilhetes);
+
 
         return view('painel.movimento.score.show', compact('user', 'pontos', 'bilhetes', 'promocao', 'nome_cliente'));
     }
