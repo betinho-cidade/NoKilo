@@ -33,9 +33,9 @@ class SendStatusNota extends Mailable
     {
         $view = ($this->nota->status == 'A') ? 'emails.nota.alteracao_status_APR' : 'emails.nota.alteracao_status_RPV';
 
-        return $this->from('contato@nokilo.com.br')
-                //->bcc('cadastro@metaprev.com.br')
-                ->subject('Nokilo - Alteração de Status da Nota Fiscal - '.strToUpper($this->nota->status_descricao))
+        return $this->from('naoresponda@promonokilo.com')
+                ->bcc('naoresponda@promonokilo.com')
+                ->subject('PromoNokilo - Alteração de Status da Nota Fiscal - '.strToUpper($this->nota->status_descricao))
                 ->markdown($view);
     }
 }

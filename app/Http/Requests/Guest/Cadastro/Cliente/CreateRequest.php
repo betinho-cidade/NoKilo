@@ -27,7 +27,7 @@ class CreateRequest extends FormRequest
     {
         return [
             'nome' => 'required|max:255',
-            'email' => 'required|email|max:300|unique:users,email', //Login de Acesso
+            'email' => 'required|email|max:191|unique:users,email', //Login de Acesso
             'celular' => 'required|max:11',
             'cpf' => 'required|max:11|unique:users,cpf',
             'data_nascimento' => 'required|date',
@@ -42,7 +42,7 @@ class CreateRequest extends FormRequest
             'nome.required' => 'O nome é requerido',
             'nome.max' => 'O tamanho permitido para o nome é de 255 caracteres',
             'email.required' => 'O Login de Acesso (E-mail) é requerido',
-            'email.max' => 'O tamanho permitido para o Login de Acesso (E-mail) é de 300 caracteres',
+            'email.max' => 'O tamanho permitido para o Login de Acesso (E-mail) é de 191 caracteres',
             'email.unique' => 'O Login de Acesso (E-mail) informado já existe',
             'email.email' => 'O Login de Acesso (E-mail) deve ser um e-mail válido',
             'celular.required' => 'O celular é requerido',

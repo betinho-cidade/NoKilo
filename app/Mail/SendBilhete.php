@@ -32,9 +32,9 @@ class SendBilhete extends Mailable
     {
         $view = 'emails.bilhete.novo_bilhete';
 
-        return $this->from('contato@nokilo.com.br')
-                //->bcc('cadastro@metaprev.com.br')
-                ->subject('Nokilo - Número da Sorte GERADO')
+        return $this->from('naoresponda@promonokilo.com')
+                ->bcc('naoresponda@promonokilo.com')
+                ->subject('PromoNokilo - Número da Sorte GERADO')
                 ->markdown($view);
     }
 }

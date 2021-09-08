@@ -27,7 +27,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'nome' => 'required|max:255',
-            'email' => 'required|email|max:300|unique:users,email,'.$this->usuario->id, //Login de Acesso
+            'email' => 'required|email|max:191|unique:users,email,'.$this->usuario->id, //Login de Acesso
             'celular' => 'required|max:11',
             'cpf' => 'required|max:11|unique:users,cpf,'.$this->usuario->id,
             'data_nascimento' => 'required|date',
@@ -43,7 +43,7 @@ class UpdateRequest extends FormRequest
             'nome.required' => 'O nome é requerido',
             'nome.max' => 'O tamanho permitido para o nome é de 255 caracteres',
             'email.required' => 'O Login de Acesso é requerido',
-            'email.max' => 'O tamanho permitido para o Login de Acesso é de 300 caracteres',
+            'email.max' => 'O tamanho permitido para o Login de Acesso é de 191 caracteres',
             'email.unique' => 'O Login de Acesso informado já existe',
             'email.email' => 'O Login de Acesso deve ser um e-mail válido',
             'celular.required' => 'O celular é requerido',

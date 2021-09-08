@@ -2,7 +2,7 @@
 
 
 @section('content')
-NoKilo - Promoção NoKilo
+Promoção no Kilo - Promoções
 
 @if(session()->has('message.level'))
 <div class="row">
