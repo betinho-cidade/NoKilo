@@ -4,9 +4,9 @@
     <head>
 
         <meta charset="utf-8" />
-        <title>FAFIS | Forms</title>
+        <title>Promonokilo | Açai no Kilo</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta content="Fafis Forms" name="description" />
+        <meta content="Promonokilo | Açai no Kilo" name="description" />
         <meta content="Cityinbag" name="author" />
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{asset('nazox/assets/images/favicon.png')}}">
