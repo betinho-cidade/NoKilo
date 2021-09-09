@@ -129,8 +129,6 @@ class FranquiaController extends Controller
         $usuarios = User::join('role_user', 'role_user.user_id', 'users.id')
                         ->join('roles', 'role_user.role_id', 'roles.id')
                         ->where('roles.name', 'Franquia')
-                        ->leftJoin('franquias', 'users.id', '=', 'franquias.user_id')
-                        ->whereNull('franquias.user_id')
                         ->orderBy('users.id', 'desc')
                         ->select('users.*')
                         ->get();
