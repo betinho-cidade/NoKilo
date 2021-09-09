@@ -71,17 +71,17 @@ class ScoreController extends Controller
         $cont = 0;
         foreach($clientes as $cliente){
 
-            $user = User::where('id', $cliente->user_id)->first();
+            $user_cliente = User::where('id', $cliente->user_id)->first();
 
             $promocao = Promocao::where('id', $cliente->promocao_id)->first();
 
-            $qtd_pontos = Ponto::whereIn('nota_id',$user->notas->where('promocao_id', $cliente->promocao_id)->where('status', 'A')->pluck('id'))
+            $qtd_pontos = Ponto::whereIn('nota_id',$user_cliente->notas->where('promocao_id', $cliente->promocao_id)->where('status', 'A')->pluck('id'))
                                  ->sum('quantidade');
 
-            $qtd_bilhetes = $user->bilhetes->where('promocao_id',$cliente->promocao_id)
-                                    ->count();
+            $qtd_bilhetes = $user_cliente->bilhetes->where('promocao_id',$cliente->promocao_id)
+                                                    ->count();
 
-            $status_bilhetes = $user->bilhetes->where('promocao_id',$cliente->promocao_id);
+            $status_bilhetes = $user_cliente->bilhetes->where('promocao_id',$cliente->promocao_id);
 
             $bilhete_premiado = '---';
 
@@ -100,7 +100,7 @@ class ScoreController extends Controller
             $scores[$cont]['promocao_nome'] = $cliente->promocao_nome;
             $scores[$cont]['promocao_status'] = $promocao->status_descricao;
             $scores[$cont]['bilhete_premiado'] = $bilhete_premiado;
-            $scores[$cont]['cliente'] = $user;
+            $scores[$cont]['cliente'] = $user_cliente;
             $scores[$cont]['cliente_nome'] = $cliente->user_nome;
             $scores[$cont]['qtd_pontos'] = $qtd_pontos;
             $scores[$cont]['qtd_bilhetes'] = $qtd_bilhetes;
@@ -112,34 +112,32 @@ class ScoreController extends Controller
 
 
 
-    public function show(Promocao $promocao, User $user, Request $request)
+    public function show(Promocao $promocao, User $cliente, Request $request)
     {
         if(Gate::denies('view_score')){
             abort('403', 'Página não disponível');
             //return redirect()->back();
         }
 
-        $user_logado = Auth()->User();
+        $user = Auth()->User();
 
-        $roles = $user_logado->roles;
+        $roles = $user->roles;
 
-        if($roles->first()->name == 'Cliente' && $user_logado->id != $user->id){
+        if($roles->first()->name == 'Cliente' && $user->id != $cliente->id){
             abort('403', 'Página não disponível');
 
         } else if($roles->first()->name == 'Franquia'
-                   && (!$user_logado->franquia
-                   || !in_array($user_logado->franquia->id, $user->notas->where('status', 'A')->pluck('franquia_id')->toArray())) ){
+                   && (!$user->franquia
+                   || !in_array($user->franquia->id, $cliente->notas->where('status', 'A')->pluck('franquia_id')->toArray())) ){
             abort('403', 'Página não disponível');
         }
 
-        $pontos = Ponto::whereIn('nota_id',$user->notas->where('promocao_id', $promocao->id)->where('status', 'A')->pluck('id'))
+        $pontos = Ponto::whereIn('nota_id',$cliente->notas->where('promocao_id', $promocao->id)->where('status', 'A')->pluck('id'))
                         ->get();
 
-        $bilhetes = $user->bilhetes->where('promocao_id',$promocao->id);
+        $bilhetes = $cliente->bilhetes->where('promocao_id',$promocao->id);
 
-        $nome_cliente = $user->name;
-
-        $user = Auth()->User();
+        $nome_cliente = $cliente->name;
 
 
         return view('painel.movimento.score.show', compact('user', 'pontos', 'bilhetes', 'promocao', 'nome_cliente'));

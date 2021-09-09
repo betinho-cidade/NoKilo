@@ -72,7 +72,7 @@ Route::middleware(['auth'])->group(function () {
             });
             Route::group(['namespace' => 'Score'], function(){
                 Route::get('/score', 'ScoreController@index')->name('score.index');
-                Route::get('/score/promocao/{promocao}/cliente/{user}/show', 'ScoreController@show')->name('score.show');
+                Route::get('/score/promocao/{promocao}/cliente/{cliente}/show', 'ScoreController@show')->name('score.show');
             });
         });
 

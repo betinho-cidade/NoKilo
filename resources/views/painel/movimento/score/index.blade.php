@@ -78,8 +78,8 @@
                             <td style="text-align:center;">
 
                             @can('view_score')
-                                @php $user = $score['cliente']; $promocao = $score['promocao']; @endphp
-                                <a href="{{route('score.show', compact('promocao', 'user'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Visualizar os detalhes da Pontuação"></i></a>
+                                @php $cliente = $score['cliente']; $promocao = $score['promocao']; @endphp
+                                <a href="{{route('score.show', compact('promocao', 'cliente'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Visualizar os detalhes da Pontuação"></i></a>
                             @endcan
 
                             </td>
