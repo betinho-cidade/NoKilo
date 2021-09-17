@@ -268,7 +268,9 @@ class NotaController extends Controller
                         $bilhete->user_id = $nota->user->id;
                         $bilhete->promocao_id = $nota->promocao->id;
                         $bilhete->status = 'P';
-                        $bilhete->numero_sorte = Carbon::now()->format('YmdHisu');
+                        //$bilhete->numero_sorte = Carbon::now()->format('YmdHisu');
+                        $total_bilhetes = Bilhete::where('promocao_id',$nota->promocao_id)->count();
+                        $bilhete->numero_sorte = '1' . str_pad($total_bilhetes + 1, 5, '0', STR_PAD_LEFT);
 
                         $bilhete->save();
 
@@ -277,7 +279,7 @@ class NotaController extends Controller
                 }
             }
 
-            // foreach($bilhetes as $bilhete){
+            // foreach($bilhetes as $bilhete){$
             //     dd($bilhete, $bilhetes);
             // }
             // dd($bilhetes);
