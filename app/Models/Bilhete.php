@@ -68,5 +68,12 @@ class Bilhete extends Model
         return $status;
     }
 
+
+    public function getNumeroSorteFormatadoAttribute()
+    {
+        return ($this->numero_sorte) ? substr($this->numero_sorte, -5) : '---';
+    }
+
+
 }
 

@@ -12,7 +12,7 @@ Sua Nota Fiscal informada, referente a promoção "{{ $bilhete->promocao->nome }
 | ------------- |:------------------------:|
 | Promoção      |{{ $bilhete->promocao->nome }}                          |
 | Nome          |{{ $bilhete->user->name }}                          |
-| Número Sorte  |{{ $bilhete->numero_sorte }}                 |
+| Número Sorte  |{{ $bilhete->numero_sorte_formatado }}                 |
 @endcomponent
 
 

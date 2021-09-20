@@ -37,22 +37,22 @@
                             </div>
                             <div class="card-body">
 
-                                <div class="row">                                    
+                                <div class="row">
                                     <div class="col-6 d-flex justify-content-center"><b>Data Criação</b></div>
                                     <div class="col-6 d-flex justify-content-center"><b>Quantidade</b></div>
-                                </div>                                
+                                </div>
 
                                 @forelse($pontos as $ponto)
-                                    <div class="row">                                    
+                                    <div class="row">
                                         <div class="col-6 d-flex justify-content-center">
                                             {{$ponto->data_criacao_formatada}}
                                         </div>
                                         <div class="col-6 d-flex justify-content-center">
                                             {{$ponto->quantidade}}
-                                        </div>           
-                                    </div>     
-                                @empty                    
-                                    <div class="row">                                    
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="row">
                                         <div class="col-12">
                                             Nenhum registro encontrado
                                         </div>
@@ -60,7 +60,7 @@
                                 @endforelse
 
                                 <p></p>
-                                <div class="row">                                    
+                                <div class="row">
                                     <div class="col-12 d-flex justify-content-end">
                                         <b>Total:</b> {{$pontos->sum('quantidade')}} ponto(s)
                                     </div>
@@ -77,7 +77,7 @@
                             </div>
                             <div class="card-body">
 
-                                <div class="row">                                    
+                                <div class="row">
                                     <div class="col-2 d-flex justify-content-center"><b>Data Criação</b></div>
                                     <div class="col-6 d-flex justify-content-left"><b>Número Sorte</b></div>
                                     <div class="col-2 d-flex justify-content-center"><b>Status</b></div>
@@ -85,13 +85,13 @@
                                 </div>
 
                                 @forelse($bilhetes as $bilhete)
-                                    <div class="row">                                    
+                                    <div class="row">
                                         <div class="col-2 d-flex justify-content-center">
                                             {{$bilhete->data_criacao_formatada}}
-                                        </div>                                              
+                                        </div>
                                         <div class="col-6 d-flex justify-content-left">
-                                            {{$bilhete->numero_sorte}}
-                                        </div>           
+                                            {{$bilhete->numero_sorte_formatado}}
+                                        </div>
                                         <div class="col-2 d-flex justify-content-center">
                                             @if($bilhete->status_descricao == 'PREMIADO')
                                                 <span class="avatar-title bg-success">
@@ -100,13 +100,13 @@
                                             @else
                                                 {{$bilhete->status_descricao}}
                                             @endif
-                                        </div>           
+                                        </div>
                                         <div class="col-2 d-flex justify-content-center">
                                             {{$bilhete->data_encerramento_formatada}}
-                                        </div>                                                                                           
-                                    </div>     
-                                @empty                    
-                                    <div class="row">                                    
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="row">
                                         <div class="col-12">
                                             Nenhum registro encontrado
                                         </div>
@@ -114,7 +114,7 @@
                                 @endforelse
 
                                 <p></p>
-                                <div class="row">                                    
+                                <div class="row">
                                     <div class="col-12 d-flex justify-content-end">
                                         <b>Quantidade:</b> {{$bilhetes->count()}} bilhete(s)
                                     </div>
