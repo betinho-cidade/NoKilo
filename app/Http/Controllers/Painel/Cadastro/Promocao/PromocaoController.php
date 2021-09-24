@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Cadastro\Promocao\CreateRequest;
 use App\Http\Requests\Cadastro\Promocao\UpdateRequest;
 use Carbon\Carbon;
-
+use App\Mail\SendPremiado;
+use Illuminate\Support\Facades\Mail;
 
 class PromocaoController extends Controller
 {
@@ -258,6 +259,11 @@ class PromocaoController extends Controller
             $bilhete->save();
 
             DB::commit();
+
+            try{
+                Mail::to($bilhete->user->email)->send(new SendPremiado($bilhete));
+            } catch(Exception $ex)
+            {}
 
         } catch (Exception $ex){
 
