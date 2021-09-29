@@ -61,8 +61,8 @@ class ScoreController extends Controller
                             }
                         })
                         ->join('promocaos','notas.promocao_id','=','promocaos.id')
-                        ->select('promocaos.id as promocao_id', 'promocaos.nome as promocao_nome', 'users.id as user_id', 'users.name as user_nome')
-                        ->groupBy('promocaos.id', 'promocaos.nome', 'users.id', 'users.name')
+                        ->select('promocaos.id as promocao_id', 'promocaos.nome as promocao_nome', 'users.id as user_id', 'users.name as user_nome', 'users.end_cidade as user_cidade', 'users.end_uf as user_uf')
+                        ->groupBy('promocaos.id', 'promocaos.nome', 'users.id', 'users.name', 'users.end_cidade', 'users.end_uf')
                         ->orderBy('promocaos.nome')
                         ->orderBy('users.name')
                         ->get();
@@ -102,6 +102,8 @@ class ScoreController extends Controller
             $scores[$cont]['bilhete_premiado'] = $bilhete_premiado;
             $scores[$cont]['cliente'] = $user_cliente;
             $scores[$cont]['cliente_nome'] = $cliente->user_nome;
+            $scores[$cont]['cliente_cidade'] = $cliente->user_cidade;
+            $scores[$cont]['cliente_uf'] = $cliente->user_uf;
             $scores[$cont]['qtd_pontos'] = $qtd_pontos;
             $scores[$cont]['qtd_bilhetes'] = $qtd_bilhetes;
             $cont++;

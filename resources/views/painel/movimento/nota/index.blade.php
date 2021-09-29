@@ -82,14 +82,14 @@
                         @forelse($notas->where('status', 'P') as $nota)
                         <tr>
                             <td>{{$nota->data_nota_ordenacao}}</td>
-                            <td>{{$nota->user->name}}</td>
+                            <td>{{$nota->user->name}} - {{ $nota->user->end_cidade}}/{{ $nota->user->end_uf }}</td>
                             <td style="text-align:center;">
                                 <a href="{{ route('nota.download', compact('nota')) }}">
                                     <i class="mdi mdi-file-download mdi-18px" style="color: goldenrod;cursor: pointer" title="Download da Nota"></i>
                                 </a>
                             </td>
                             <td>{{$nota->promocao->nome}}</td>
-                            <td>{{$nota->franquia->nome}}</td>
+                            <td>{{$nota->franquia->nome}} - {{ $nota->franquia->end_cidade}}/{{ $nota->franquia->end_uf }}</td>
                             <td>{{$nota->data_nota_formatada}}</td>
                             <td>{{$nota->valor_nota}}</td>
                             <td style="text-align:center;">
@@ -144,14 +144,14 @@
                         @forelse($notas->where('status', 'A') as $nota)
                         <tr>
                             <td>{{$nota->data_nota_ordenacao}}</td>
-                            <td>{{$nota->user->name}}</td>
+                            <td>{{$nota->user->name}} - {{ $nota->user->end_cidade}}/{{ $nota->user->end_uf }}</td>
                             <td style="text-align:center;">
                                 <a href="{{ route('nota.download', compact('nota')) }}">
                                     <i class="mdi mdi-file-download mdi-18px" style="color: goldenrod;cursor: pointer" title="Download da Nota"></i>
                                 </a>
                             </td>
                             <td>{{$nota->promocao->nome}}</td>
-                            <td>{{$nota->franquia->nome}}</td>
+                            <td>{{$nota->franquia->nome}} - {{ $nota->franquia->end_cidade}}/{{ $nota->franquia->end_uf }}</td>
                             <td>{{$nota->data_nota_formatada}}</td>
                             <td>{{$nota->valor_nota}}</td>
                         </tr>
@@ -184,14 +184,14 @@
                         @forelse($notas->where('status', 'R') as $nota)
                         <tr>
                             <td>{{$nota->data_nota_ordenacao}}</td>
-                            <td>{{$nota->user->name}}</td>
+                            <td>{{$nota->user->name}} - {{ $nota->user->end_cidade}}/{{ $nota->user->end_uf }}</td>
                             <td style="text-align:center;">
                                 <a href="{{ route('nota.download', compact('nota')) }}">
                                     <i class="mdi mdi-file-download mdi-18px" style="color: goldenrod;cursor: pointer" title="Download da Nota"></i>
                                 </a>
                             </td>
                             <td>{{$nota->promocao->nome}}</td>
-                            <td>{{$nota->franquia->nome}}</td>
+                            <td>{{$nota->franquia->nome}} - {{ $nota->franquia->end_cidade}}/{{ $nota->franquia->end_uf }}</td>
                             <td title="{{$nota->motivo_reprovacao}}">{{$nota->motivo_reprovacao_resumida}}</td>
                             <td style="text-align:center;">
 

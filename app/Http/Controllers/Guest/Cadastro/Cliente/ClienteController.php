@@ -41,6 +41,13 @@ class ClienteController extends Controller
             $usuario->cpf = $request->cpf;
             $usuario->celular = $request->celular;
             $usuario->data_nascimento = $request->data_nascimento;
+            $usuario->end_cep = $request->end_cep;
+            $usuario->end_cidade = $request->end_cidade;
+            $usuario->end_uf = $request->end_uf;
+            $usuario->end_logradouro = $request->end_logradouro;
+            $usuario->end_numero = $request->end_numero;
+            $usuario->end_bairro = $request->end_bairro;
+            $usuario->end_complemento = $request->end_complemento;
             $usuario->email = $request->email;
             $usuario->password = bcrypt($request->password);
 
@@ -95,6 +102,29 @@ class ClienteController extends Controller
             Auth()->logout();
             return redirect()->route('login');
         }
+    }
+
+
+    public function js_viacep_new(Request $request)
+    {
+
+        $cep = Str::of($request->cep)->replaceMatches('/[^z0-9]++/', '')->__toString();
+
+        $url = 'https://viacep.com.br/ws/'. $cep .'/json/';
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 3);
+
+        $result = curl_exec($ch);
+
+        curl_close($ch);
+
+        $mensagem = json_decode($result,true);
+
+        echo json_encode($mensagem);
     }
 
 }

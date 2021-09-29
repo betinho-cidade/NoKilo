@@ -90,6 +90,13 @@ class UsuarioController extends Controller
             $usuario->cpf = $request->cpf;
             $usuario->celular = $request->celular;
             $usuario->data_nascimento = $request->data_nascimento;
+            $usuario->end_cep = $request->end_cep;
+            $usuario->end_cidade = $request->end_cidade;
+            $usuario->end_uf = $request->end_uf;
+            $usuario->end_logradouro = $request->end_logradouro;
+            $usuario->end_numero = $request->end_numero;
+            $usuario->end_bairro = $request->end_bairro;
+            $usuario->end_complemento = $request->end_complemento;
             $usuario->email = $request->email;
             $usuario->password = bcrypt($request->password);
 
@@ -162,6 +169,13 @@ class UsuarioController extends Controller
             $usuario->cpf = $request->cpf;
             $usuario->celular = $request->celular;
             $usuario->data_nascimento = $request->data_nascimento;
+            $usuario->end_cep = $request->end_cep;
+            $usuario->end_cidade = $request->end_cidade;
+            $usuario->end_uf = $request->end_uf;
+            $usuario->end_logradouro = $request->end_logradouro;
+            $usuario->end_numero = $request->end_numero;
+            $usuario->end_bairro = $request->end_bairro;
+            $usuario->end_complemento = $request->end_complemento;
             $usuario->email = $request->email;
 
             if($request->password){

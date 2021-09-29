@@ -68,7 +68,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="franquia">Loja onde Adquiriu o produto</label>
+                                <label for="franquia">Onde Comprei</label>
                                 <select id="franquia" name="franquia" class="form-control" required>
                                     <option value="">---</option>
                                     @foreach($franquias as $franquia)

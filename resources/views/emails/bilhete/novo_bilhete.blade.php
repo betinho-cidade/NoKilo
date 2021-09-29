@@ -16,7 +16,7 @@ Sua Nota Fiscal informada, referente a promoção "{{ $bilhete->promocao->nome }
 @endcomponent
 
 
-@component('mail::button', ['url' => 'http://api.whatsapp.com/send?1=pt_BR&phone=5543996748620'])
+@component('mail::button', ['url' => 'http://api.whatsapp.com/send?1=pt_BR&phone=5575998508470'])
 Fale Conosco
 @endcomponent
 

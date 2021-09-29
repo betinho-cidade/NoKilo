@@ -62,7 +62,7 @@
                         @forelse($scores as $score)
                         <tr>
                             <td>{{$score['promocao_nome']}}</td>
-                            <td>{{$score['cliente_nome']}}</td>
+                            <td>{{$score['cliente_nome']}} - {{ $score['cliente_cidade']}}/{{ $score['cliente_uf'] }}</td>
                             <td>{{$score['qtd_pontos']}}</td>
                             <td>{{$score['qtd_bilhetes']}}</td>
                             <td>{{$score['promocao_status']}}</td>

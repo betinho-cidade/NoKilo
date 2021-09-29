@@ -2,7 +2,7 @@
 
 
 @section('content')
-Promoção no Kilo - Promoções
+Você de PCX
 
 @if(session()->has('message.level'))
 <div class="row">

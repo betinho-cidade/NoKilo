@@ -20,6 +20,13 @@ class CreateUsersTable extends Migration
             $table->date('data_nascimento');
             $table->string('celular', 11);
             $table->string('cpf', 11)->unique('user_cpf_uk');
+            $table->string('end_cep', 8);
+            $table->string('end_cidade', 60);
+            $table->string('end_uf', 2);
+            $table->string('end_logradouro', 80);
+            $table->string('end_numero', 20);
+            $table->string('end_bairro', 60);
+            $table->string('end_complemento', 40)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

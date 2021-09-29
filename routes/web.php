@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
             Route::group(['namespace' => 'Cliente'], function(){
                 Route::get('/cliente/{user}', 'ClienteController@show')->name('cliente.show');
                 Route::put('/cliente/{user}/update', 'ClienteController@update')->name('cliente.update');
+                Route::post('/cliente/js_viacep', 'ClienteController@js_viacep')->name('cliente.js_viacep');
             });
             Route::group(['namespace' => 'Usuario'], function(){
                 Route::get('/usuario', 'UsuarioController@index')->name('usuario.index');
@@ -87,6 +88,7 @@ Route::group(['namespace' => 'Guest'], function(){
         Route::get('/novo_cliente', 'ClienteController@create')->name('cliente.create');
         Route::post('/novo_cliente/create', 'ClienteController@store')->name('cliente.store');
         Route::get('/novo_cliente/bemvindo', 'ClienteController@bemvindo')->name('cliente.bemvindo');
+        Route::post('/novo_cliente/js_viacep_new', 'ClienteController@js_viacep_new')->name('cliente.js_viacep_new');
     });
 });
 

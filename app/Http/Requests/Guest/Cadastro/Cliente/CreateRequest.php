@@ -19,6 +19,7 @@ class CreateRequest extends FormRequest
         $this->merge([
             'cpf' => Str::of($this->cpf)->replaceMatches('/[^z0-9]++/', '')->__toString(),
             'celular' => Str::of($this->celular)->replaceMatches('/[^z0-9]++/', '')->__toString(),
+            'end_cep' => Str::of($this->end_cep)->replaceMatches('/[^z0-9]++/', '')->__toString(),
         ]);
     }
 
@@ -31,6 +32,12 @@ class CreateRequest extends FormRequest
             'celular' => 'required|max:11',
             'cpf' => 'required|max:11|unique:users,cpf',
             'data_nascimento' => 'required|date',
+            'end_cep' => 'required',
+            'end_cidade' => 'required',
+            'end_uf' => 'required',
+            'end_logradouro' => 'required',
+            'end_numero' => 'required',
+            'end_bairro' => 'required',
             'password' => 'required|min:8',
             'password_confirm' => 'required|same:password',
         ];
@@ -52,6 +59,12 @@ class CreateRequest extends FormRequest
             'cpf.unique' => 'O CPF informado já existe',
             'data_nascimento.required' => 'A data de nascimento é requerida',
             'data_nascimento.date' => 'A data de nascimento é inválida',
+            'end_cep.required' => 'O CEP é requerido',
+            'end_cidade.required' => 'A cidade é requerida',
+            'end_uf.required' => 'O estado (UF) é requerido',
+            'end_logradouro.required' => 'O endereço é requerido',
+            'end_numero.required' => 'O número do endereço é requerido',
+            'end_bairro.required' => 'O bairro é requerido',
             'password.required' => 'A Senha é requerida',
             'password.min' => 'A Senha deve conter no mínimo 8 caracteres',
             'password_confirm.required' => 'A Senha de Confirmação é requerida',

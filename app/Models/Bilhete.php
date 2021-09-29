@@ -48,7 +48,7 @@ class Bilhete extends Model
         switch ($this->status) {
 
             case 'P': {
-                    $status = 'Pendente';
+                    $status = 'Participando';
                     break;
                 }
             case 'S': {

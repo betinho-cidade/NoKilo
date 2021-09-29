@@ -68,6 +68,13 @@ class ClienteController extends Controller
             $user->cpf = $request->cpf;
             $user->celular = $request->celular;
             $user->data_nascimento = $request->data_nascimento;
+            $user->end_cep = $request->end_cep;
+            $user->end_cidade = $request->end_cidade;
+            $user->end_uf = $request->end_uf;
+            $user->end_logradouro = $request->end_logradouro;
+            $user->end_numero = $request->end_numero;
+            $user->end_bairro = $request->end_bairro;
+            $user->end_complemento = $request->end_complemento;
             $user->email = $request->email;
 
             if($request->password){
@@ -94,6 +101,29 @@ class ClienteController extends Controller
         }
 
         return redirect()->route('painel');
+    }
+
+
+    public function js_viacep(Request $request)
+    {
+
+        $cep = Str::of($request->cep)->replaceMatches('/[^z0-9]++/', '')->__toString();
+
+        $url = 'https://viacep.com.br/ws/'. $cep .'/json/';
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 3);
+
+        $result = curl_exec($ch);
+
+        curl_close($ch);
+
+        $mensagem = json_decode($result,true);
+
+        echo json_encode($mensagem);
     }
 
 }

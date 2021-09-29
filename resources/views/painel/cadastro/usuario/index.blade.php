@@ -69,7 +69,7 @@
                         @forelse($users_AT as $usuario)
                         <tr>
                             <td>{{$usuario->id}}</td>
-                            <td>{{$usuario->name}}</td>
+                            <td>{{$usuario->name}} - {{ $usuario->end_cidade}}/{{ $usuario->end_uf }}</td>
                             <td>{{$usuario->email}}</td>
                             <td style="text-align:center;">{{$usuario->perfil}}</td>
                             <td style="text-align:center;">
@@ -123,7 +123,7 @@
                         @forelse($users_IN as $usuario)
                         <tr>
                             <td>{{$usuario->id}}</td>
-                            <td>{{$usuario->name}}</td>
+                            <td>{{$usuario->name}} - {{ $usuario->end_cidade}}/{{ $usuario->end_uf }}</td>
                             <td>{{$usuario->email}}</td>
                             <td style="text-align:center;">{{$usuario->perfil}}</td>
                             <td style="text-align:center;">

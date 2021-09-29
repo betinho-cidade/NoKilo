@@ -18,7 +18,7 @@ Aguarde mais informações sobre a premiação, para desfrutrar do seu prêmio.
 @endcomponent
 
 
-@component('mail::button', ['url' => 'http://api.whatsapp.com/send?1=pt_BR&phone=5543996748620'])
+@component('mail::button', ['url' => 'http://api.whatsapp.com/send?1=pt_BR&phone=5575998508470'])
 Fale Conosco
 @endcomponent
 

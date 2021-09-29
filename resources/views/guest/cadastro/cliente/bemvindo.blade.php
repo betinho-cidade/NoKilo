@@ -134,13 +134,9 @@
                                 <!-- FORMULÁRIO - INICIO -->
 
                                 <h4 class="card-title">Parabéns !!!</h4>
-                                <p class="card-title-desc">Você realizou seu cadastro com sucesso.</p>
+                                <p class="card-title-desc">A partir de agora você já pode participar das nossas promoções!</p>
 
-                                {{--  <div class="bg-soft-primary p-3 rounded" style="margin-bottom:10px;">
-                                    <h5 class="text-primary font-size-14" style="margin-bottom: 0px;">Plano: {{ $plano_assinatura->name }} - R$ {{ number_format($plano_assinatura->amountPerPayment, 2, ",", ".") }}</h5>
-                                 </div>  --}}
-
-                                <p>Agora, acesse ao <a href="{{ route('login') }}">Portal Nokilo</a>, faça seu login com o e-mail e senha que acabou de criar e desfrute de nossas promoção.</p>
+                                <p>Acesse ao <a href="{{ route('login') }}">Portal Nokilo</a>, faça seu login e descubra como concorrer a uma moto PCX 0KM! E se a sorte te der uma carona?</p>
                                 <a href="{{ route('login') }}" style=" padding: 12px 19px; background: #353535; color: #fff; display: inline-flex; border-radius: 5px; ">Acesso ao Portal</a>
 
                                 </div>

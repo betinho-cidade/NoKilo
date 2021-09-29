@@ -41,8 +41,8 @@
             <div class="card-body">
             <!-- FORMULÁRIO - INICIO -->
 
-            <h4 class="card-title">Formulário de Cadastro - Nota Fiscal</h4>
-            <p class="card-title-desc">A Nota Fiscal cadastrada será aprovada/reprovada pela Adminstração do Site. Sendo aprovada, ela será registrada e acumulará pontos para a geração do bilhete/número para sorteio.</p>
+            <h4 class="card-title">CADASTRE SUA NOTA:</h4>
+            <p class="card-title-desc">Aguarde só mais um pouquinho. Sua nota fiscal será avaliada e logo você conhecerá o seu número da sorte. Fique de olho no e-mail cadastrado e dedos cruzados!</p>
             <form name="create_nota" method="POST" action="{{route('nota.store')}}"  class="needs-validation"  accept-charset="utf-8" enctype="multipart/form-data" novalidate>
                 @csrf
 
@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="franquia">Loja onde Adquiriu o produto</label>
+                                <label for="franquia">Onde Comprei</label>
                                 <select id="franquia" name="franquia" class="form-control">
                                     <option value="">---</option>
                                     @foreach($franquias as $franquia)

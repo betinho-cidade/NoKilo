@@ -9,7 +9,7 @@ Sua Nota Fiscal cadastrada em nosso sistema, referente a promoção "{{ $nota->p
 
 Fique à vontade para adicionar novas notas.
 
-@component('mail::button', ['url' => 'http://api.whatsapp.com/send?1=pt_BR&phone=5543996748620'])
+@component('mail::button', ['url' => 'http://api.whatsapp.com/send?1=pt_BR&phone=5575998508470'])
 Fale Conosco
 @endcomponent
 

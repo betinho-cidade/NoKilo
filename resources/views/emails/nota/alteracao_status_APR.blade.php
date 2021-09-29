@@ -21,7 +21,7 @@ A quantidade de Pontos geradas foi {{ $nota->pontos()->sum('quantidade') }}.
 @endcomponent
 
 
-@component('mail::button', ['url' => 'http://api.whatsapp.com/send?1=pt_BR&phone=5543996748620'])
+@component('mail::button', ['url' => 'http://api.whatsapp.com/send?1=pt_BR&phone=5575998508470'])
 Fale Conosco
 @endcomponent
 
