@@ -12,6 +12,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Guest\Cadastro\Cliente\CreateRequest;
 use Image;
+use App\Mail\SendCadastro;
+use Illuminate\Support\Facades\Mail;
+
 
 
 class ClienteController extends Controller
@@ -66,6 +69,11 @@ class ClienteController extends Controller
             $status->save();
 
             DB::commit();
+
+            try{
+                Mail::to($usuario->email)->send(new SendCadastro($usuario));
+            } catch(Exception $ex)
+            {}
 
         } catch (Exception $ex){
 

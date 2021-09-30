@@ -1,11 +1,11 @@
 @component('mail::message')
 # Nota Fiscal Aprovada
 
-Olá, {{ $nota->user->name }}.
+Ihuuuuuuul!
 
-Sua Nota Fiscal cadastrada em nosso sistema, referente a promoção "{{ $nota->promocao->nome }}" foi APROVADA. Ela foi confirmada com a data de {{ $nota->data_nota_formatada }} e com o valor de {{ $nota->valor_nota }}.
+Sua nota foi validada com sucesso!
 
-A quantidade de Pontos geradas foi {{ $nota->pontos()->sum('quantidade') }}.
+Continue participando e aumente as suas chances de ganhar uma PCX novinha!
 
 ## Informações Recebidas:
 

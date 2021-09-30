@@ -71,14 +71,14 @@
                                                         <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Log In</button>
                                                     </div>
 
-                                                    {{-- <div class="mt-4 text-center">
-                                                        <a href="auth-recoverpw.html" class="text-muted"><i class="mdi mdi-lock mr-1"></i> Forgot your password?</a>
-                                                    </div> --}}
+                                                    <div class="mt-4 text-center">
+                                                        <a href="{{ route('cliente.create') }}" class="text-muted"><i class="mdi mdi-lock mr-1"></i> Não tenho cadastro ?</a>
+                                                    </div>
                                                 </form>
                                             </div>
 
                                             <div class="mt-5 text-center">
-                                                <p>© 2021 Famali. <br>Desenvolvido por <a href="https://cityinbag.com.br/" target="_blank">Cityinbag</a>.</p>
+                                                <p>© 2021 Nokilo. <br>Desenvolvido por <a href="https://cityinbag.com.br/" target="_blank">Cityinbag</a>.</p>
                                             </div>
                                         </div>
 
