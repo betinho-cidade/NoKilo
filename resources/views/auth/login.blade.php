@@ -72,7 +72,7 @@
                                                     </div>
 
                                                     <div class="mt-4 text-center">
-                                                        <a href="{{ route('cliente.create') }}" class="text-muted"><i class="mdi mdi-lock mr-1"></i> Não tenho cadastro ?</a>
+                                                        <a href="{{ route('cliente.create') }}" class="text-muted"><i class="mdi mdi-lock mr-1"></i> Não é cadastrado? Clique aqui.</a>
                                                     </div>
                                                 </form>
                                             </div>
