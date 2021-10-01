@@ -20,6 +20,21 @@
         <link href="{{asset('nazox/assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
         <!-- Cityinbag - CSS -->
         <link href="{{asset('css/cityinbag.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+        
+        <!-- CSS PERSONALIZADO CADASTRO CITYINBAG -->
+
+        <style type="text/css">
+            .btn-primary{background-color: #8d01a0 !important;border-color: #8d01a0 !important;}
+            .btn-primary:hover, .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle{    box-shadow: none;background-color: #750185 !important;border-color: #750185 !important;}
+
+            .bg-soft-primary {background-color: #fef68c !important;}
+            .text-primary, .page-title-box h4, .card-title, label{  color: #8d01a0!important;}
+
+            body[data-sidebar=dark] .navbar-brand-box {background: #311538;}
+            body[data-sidebar=dark] .vertical-menu{background: #3f1a48;}
+        
+        </style>
+        
 
     </head>
 
@@ -98,7 +113,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0">Cliente NoKilo - Adesão</h4>
+                                <h4 class="mb-0">E SE A SORTE TE DER UMA CARONA? AGORA FALTA POUCO.</h4>
                             </div>
                         </div>
                     </div>
@@ -133,8 +148,8 @@
                                 <div class="card-body">
                                 <!-- FORMULÁRIO - INICIO -->
 
-                                <h4 class="card-title">Formulário de Cadastro</h4>
-                                <p class="card-title-desc">Seja bem-vindo ao cadastro para clientes NoKilo. Preencha seu cadastro e aproveita as promoções que oferecemos.</p>
+                                <h4 class="card-title">Preencha seus Dados</h4>
+                                <p class="card-title-desc">Para participar, precisamos de algumas informações. A senha deve conter no mínimo 8 dígitos. Boa sorte!</p>
                                 <form name="create_usuario" method="POST" action="{{route('cliente.store')}}"  class="needs-validation" novalidate>
                                     @csrf
 
