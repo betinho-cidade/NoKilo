@@ -37,22 +37,22 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#pendente" role="tab">
-                            <span class="d-block d-sm-none"><i class="ri-checkbox-circle-line"></i></span>
-                            <span class="d-none d-sm-block">Notas Pendentes ( <code class="highlighter-rouge">{{$notas->where('status', 'P')->count()}}</code> )
+                            <span class="d-block d-sm-none"></span>
+                            <span class="d-sm-block">Notas Pendentes ( <code class="highlighter-rouge">{{$notas->where('status', 'P')->count()}}</code> )
                             </span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#aprovada" role="tab">
-                            <span class="d-block d-sm-none"><i class="ri-checkbox-circle-line"></i></span>
-                            <span class="d-none d-sm-block">Notas Aprovadas ( <code class="highlighter-rouge">{{$notas->where('status', 'A')->count()}}</code> )
+                            <span class="d-block d-sm-none"></span>
+                            <span class="d-sm-block">Notas Aprovadas ( <code class="highlighter-rouge">{{$notas->where('status', 'A')->count()}}</code> )
                             </span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#reprovada" role="tab">
-                            <span class="d-block d-sm-none"><i class="ri-checkbox-circle-line"></i></span>
-                            <span class="d-none d-sm-block">Notas Reprovadas ( <code class="highlighter-rouge">{{$notas->where('status', 'R')->count()}}</code> )
+                            <span class="d-block d-sm-none"></span>
+                            <span class="d-sm-block">Notas Reprovadas ( <code class="highlighter-rouge">{{$notas->where('status', 'R')->count()}}</code> )
                             </span>
                         </a>
                     </li>
@@ -64,7 +64,7 @@
 
                 <!-- Nav tabs - LISTA PENDENTE - INI -->
                 <div class="tab-pane active" id="pendente" role="tabpanel">
-                    <table id="dt_notas_PD" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <table id="dt_notas_PD" class="table table-striped table-bordered nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                         <tr>
                             <th>Ordenação</th>
@@ -127,7 +127,7 @@
 
                 <!-- Nav tabs - LISTA APROVADA - INI -->
                 <div class="tab-pane" id="aprovada" role="tabpanel">
-                    <table id="dt_notas_AP" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <table id="dt_notas_AP" class="table table-striped table-bordered nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                         <tr>
                             <th>Ordenação</th>
@@ -167,7 +167,7 @@
 
                 <!-- Nav tabs - LISTA REPROVADA - INI -->
                 <div class="tab-pane" id="reprovada" role="tabpanel">
-                    <table id="dt_notas_RP" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <table id="dt_notas_RP" class="table table-striped table-bordered nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                         <tr>
                             <th>Ordenação</th>

@@ -140,6 +140,27 @@ class NotaController extends Controller
                 $request->path_nota->storeAs($path_nota, $nome_arquivo);
 
                 $nota->save();
+
+                // ajuste
+                //
+
+                //$teste = $request->path_nota;
+
+                //$img = Image::make($teste)->orientate();
+
+                //$img->fit(300);
+
+                //dd($img);
+
+                //$img->resize(1024, null, function ($constraint) {
+                //    $constraint->aspectRatio();
+                //})->save($img, 60);
+                //$img->save($path_nota, 60);
+
+                //dd();
+
+                //$img->storeAs($path_nota, $nome_arquivo);
+
             }
 
             DB::commit();

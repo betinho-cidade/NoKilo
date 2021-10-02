@@ -33,7 +33,7 @@
                     <div class="col-lg-4">
                         <div class="card border border-primary">
                             <div class="card-header bg-transparent border-primary">
-                                <h5 class="my-0 text-primary"><i class="mdi mdi-bullseye-arrow me-3"></i>Seus Pontos</h5>
+                                <h5 class="my-0 text-primary"><i class="mdi mdi-bullseye-arrow me-3"></i> Seus Pontos</h5>
                             </div>
                             <div class="card-body">
 
@@ -61,8 +61,8 @@
 
                                 <p></p>
                                 <div class="row">
-                                    <div class="col-12 d-flex justify-content-end">
-                                        <b>Saldo de pontos:</b> {{$pontos->sum('quantidade')}} ponto(s)
+                                    <div class="col-12 justify-content-end" style="text-align: right;">
+                                        <b>Saldo de pontos: </b> {{$pontos->sum('quantidade')}} ponto(s)
                                     </div>
                                 </div>
 
@@ -73,50 +73,46 @@
                     <div class="col-lg-8">
                         <div class="card border border-success">
                             <div class="card-header bg-transparent border-success">
-                                <h5 class="my-0 text-success"><i class="mdi mdi-check-all me-3"></i>Seus bilhetes</h5>
+                                <h5 class="my-0 text-success"><i class="mdi mdi-check-all me-3"></i> Seus bilhetes</h5>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" style="overflow-x: auto;">
 
-                                <div class="row">
-                                    <div class="col-2 d-flex justify-content-center"><b>Gerados em</b></div>
-                                    <div class="col-5 d-flex justify-content-left"><b>Número da Sorte</b></div>
-                                    <div class="col-3 d-flex justify-content-center"><b>Status</b></div>
-                                    <div class="col-2 d-flex justify-content-center"><b>Encerramento</b></div>
-                                </div>
-
-                                @forelse($bilhetes as $bilhete)
-                                    <div class="row">
-                                        <div class="col-2 d-flex justify-content-center">
-                                            {{$bilhete->data_criacao_formatada}}
-                                        </div>
-                                        <div class="col-5 d-flex justify-content-left">
-                                            {{$bilhete->numero_sorte_formatado}}
-                                        </div>
-                                        <div class="col-3 d-flex justify-content-center">
-                                            @if($bilhete->status_descricao == 'PREMIADO')
-                                                <span class="avatar-title bg-success">
-                                                    {{$bilhete->status_descricao}}
-                                                </span>
-                                            @else
-                                                {{$bilhete->status_descricao}}
-                                            @endif
-                                        </div>
-                                        <div class="col-2 d-flex justify-content-center">
-                                            {{$bilhete->data_encerramento_formatada}}
-                                        </div>
-                                    </div>
-                                @empty
-                                    <div class="row">
-                                        <div class="col-12">
-                                            Nenhum registro encontrado
-                                        </div>
-                                    </div>
-                                @endforelse
-
+                                <table id="dt_score" class="table table-striped table-bordered nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <th style="min-width: 120px;">Gerados em</th>
+                                        <th style="min-width: 150px;">Número da Sorte</th>
+                                        <th style="min-width: 140px;">Status</th>
+                                        <th style="min-width: 120px;">Encerramento</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($bilhetes as $bilhete)
+                                        <tr>
+                                            <td> {{$bilhete->data_criacao_formatada}}</td>
+                                            <td>{{$bilhete->numero_sorte_formatado}}</td>
+                                            <td>
+                                                    @if($bilhete->status_descricao == 'PREMIADO')
+                                                        <span class="avatar-title bg-success">
+                                                            {{$bilhete->status_descricao}}
+                                                        </span>
+                                                    @else
+                                                        {{$bilhete->status_descricao}}
+                                                    @endif
+                                            </td>
+                                            <td>{{$bilhete->data_encerramento_formatada}}</td>
+                                        </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan="4"> Nenhum registro encontrado</td>
+                                    </tr>
+                                    @endforelse
+                                    </tbody>
+                                </table>
                                 <p></p>
                                 <div class="row">
-                                    <div class="col-12 d-flex justify-content-end">
-                                        <b>Quantidade:</b> {{$bilhetes->count()}} bilhete(s)
+                                    <div class="col-12 justify-content-end">
+                                        <b>Quantidade: </b> {{$bilhetes->count()}} bilhete(s)
                                     </div>
                                 </div>
 

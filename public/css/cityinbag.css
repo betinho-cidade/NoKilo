@@ -8,6 +8,8 @@
 .plano-acao-imagem img, .img-aplica{max-height: 120px;}
 .plano-acao-geral-auditor{margin-bottom: 18px;}
 
+.dataTables_wrapper .col-sm-12{overflow-x: auto;}
+
 /* CSS PADRAO CORES FAMALI */
 .btn-primary{background-color: #272727 !important;border-color: #272727 !important;}
 .btn-primary:hover, .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle{    box-shadow: none;background-color: #3e3e3e !important;border-color: #3e3e3e !important;}

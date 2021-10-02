@@ -25,15 +25,15 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title">Listagem das Pontuações e Bilhetes Gerados do Cliente</h4>
+                <h4 class="card-title">Minha lista de Pontos e Bilhetes Gerados</h4>
                 <p class="card-title-desc"></p>
 
                 <!-- Nav tabs - LISTA - INI -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#ativa" role="tab">
-                            <span class="d-block d-sm-none"><i class="ri-checkbox-circle-line"></i></span>
-                            <span class="d-none d-sm-block">Score
+                            <span class="d-block d-sm-none"></span>
+                            <span class="d-sm-block">Score
                             </span>
                         </a>
                     </li>
@@ -45,7 +45,7 @@
 
                 <!-- Nav tabs - LISTA PENDENTE - INI -->
                 <div class="tab-pane active" id="ativa" role="tabpanel">
-                    <table id="dt_score" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <table id="dt_score" class="table table-striped table-bordered nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                         <tr>
                             <th>Promoção</th>
