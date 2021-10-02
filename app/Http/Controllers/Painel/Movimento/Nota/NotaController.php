@@ -22,6 +22,7 @@ use Carbon\Carbon;
 use App\Mail\SendStatusNota;
 use App\Mail\SendBilhete;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 
 class NotaController extends Controller
@@ -137,30 +138,13 @@ class NotaController extends Controller
 
                 $nota->path_nota = $nome_arquivo;
 
-                $request->path_nota->storeAs($path_nota, $nome_arquivo);
-
                 $nota->save();
 
-                // ajuste
-                //
+                $photo = Image::make($request->path_nota)
+                                ->resize(1024, null, function ($constraint) { $constraint->aspectRatio(); } )
+                                ->encode($request->path_nota->getClientOriginalExtension(),80);
 
-                //$teste = $request->path_nota;
-
-                //$img = Image::make($teste)->orientate();
-
-                //$img->fit(300);
-
-                //dd($img);
-
-                //$img->resize(1024, null, function ($constraint) {
-                //    $constraint->aspectRatio();
-                //})->save($img, 60);
-                //$img->save($path_nota, 60);
-
-                //dd();
-
-                //$img->storeAs($path_nota, $nome_arquivo);
-
+                Storage::put($path_nota  . '/' . $nome_arquivo, $photo);
             }
 
             DB::commit();
@@ -300,11 +284,6 @@ class NotaController extends Controller
                 }
             }
 
-            // foreach($bilhetes as $bilhete){$
-            //     dd($bilhete, $bilhetes);
-            // }
-            // dd($bilhetes);
-
             DB::commit();
 
             if($nota->status == 'R'){
@@ -378,10 +357,9 @@ class NotaController extends Controller
 
             $nota->delete();
 
-            if(\Storage::exists($path_nota)) {
-                \Storage::delete($path_nota.'/'.$nota->path_nota);
+            if(Storage::exists($path_nota)) {
+                Storage::delete($path_nota.'/'.$nota->path_nota);
             }
-
 
             DB::commit();
 
@@ -445,7 +423,7 @@ class NotaController extends Controller
         ->first();
 
         if($nota){
-            return \Storage::download('notas/'. $nota->user_id . '/' . $nota->path_nota);
+            return Storage::download('notas/'. $nota->user_id . '/' . $nota->path_nota);
 
         }else{
             abort('403', 'Página não disponível');
