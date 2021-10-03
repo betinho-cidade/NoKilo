@@ -261,4 +261,64 @@ class UsuarioController extends Controller
         return redirect()->route('usuario.index');
     }
 
+
+    public function search(Request $request)
+    {
+        if(Gate::denies('view_usuario')){
+            abort('403', 'Página não disponível');
+            //return redirect()->back();
+        }
+
+        $user = Auth()->User();
+
+        $search = ($request->perfil) ? $request->perfil : '';
+
+        $users_AT = User::join('role_user', 'role_user.user_id', 'users.id')
+                            ->where('role_user.status','A')
+                            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+                            ->where(function($query) use ($search){
+                                if($search){
+
+                                    if($search == 'G'){
+                                        $query->where('roles.name', 'Gestor');
+                                    }
+                                    elseif($search == 'F'){
+                                        $query->where('roles.name', 'Franquia');
+                                    }
+                                    elseif($search == 'C'){
+                                        $query->where('roles.name', 'Cliente');
+                                    }
+                                }
+                            })
+                            ->orderBy('users.id', 'desc')
+                            ->select('users.*')
+                            ->get();
+
+
+        $users_IN = User::join('role_user', 'role_user.user_id', 'users.id')
+                            ->where('role_user.status','i')
+                            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+                            ->where(function($query) use ($search){
+                                if($search){
+
+                                    if($search == 'G'){
+                                        $query->where('roles.name', 'Gestor');
+                                    }
+                                    elseif($search == 'F'){
+                                        $query->where('roles.name', 'Franquia');
+                                    }
+                                    elseif($search == 'C'){
+                                        $query->where('roles.name', 'Cliente');
+                                    }
+                                }
+                            })
+                            ->orderBy('users.id', 'desc')
+                            ->select('users.*')
+                            ->get();
+
+
+        return view('painel.cadastro.usuario.index', compact('user', 'users_AT', 'users_IN'));
+    }
+
+
 }

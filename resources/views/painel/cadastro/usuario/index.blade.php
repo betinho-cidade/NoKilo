@@ -29,6 +29,19 @@
         <div class="card">
             <div class="card-body">
 
+                <form action="" id="search_user" method="POST">
+                    @csrf
+                    <span class="float-right">
+                        <select id="perfil" name="perfil" class="form-control dynamic">
+                            <option value="">---</option>
+                            <option value="T">Todos</option>
+                            <option value="G">Gestor</option>
+                            <option value="F">Franquia</option>
+                            <option value="C">Cliente</option>
+                        </select>
+                    </span>
+                </form>
+
                 <h4 class="card-title">Listagem dos Usuários Registrados no Sistema</h4>
                 <p class="card-title-desc"></p>
 
@@ -179,6 +192,8 @@
    <!-- Datatable init js -->
     <script src="{{asset('nazox/assets/js/pages/datatables.init.js')}}"></script>
 
+    <script src="{{asset('nazox/assets/js/pages/form-validation.init.js')}}"></script>
+
     @if($users_AT->count() > 0)
         <script>
             var table_AT = $('#dt_users_AT').DataTable({
@@ -215,5 +230,19 @@
            $("#deleteForm").submit();
        }
     </script>
+
+    <script type='text/javascript'>
+        $(document).ready(function(){
+          $('.dynamic').change(function(){
+
+                if ($(this).val() != ''){
+                    var url = '{{ route("usuario.search") }}';
+                    $("#search_user").attr('action', url);
+                    $("#search_user").submit();
+                }
+            });
+          });
+    </script>
+
 
 @endsection

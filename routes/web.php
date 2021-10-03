@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
             });
             Route::group(['namespace' => 'Usuario'], function(){
                 Route::get('/usuario', 'UsuarioController@index')->name('usuario.index');
+                Route::post('/usuario/search', 'UsuarioController@search')->name('usuario.search');
                 Route::get('/usuario/create', 'UsuarioController@create')->name('usuario.create');
                 Route::post('/usuario/store', 'UsuarioController@store')->name('usuario.store');
                 Route::get('/usuario/{usuario}', 'UsuarioController@show')->name('usuario.show');

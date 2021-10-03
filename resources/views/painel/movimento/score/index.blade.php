@@ -6,6 +6,11 @@
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
             <h4 class="mb-0">Pontuações e Bilhetes Gerados</h4>
+            @can('create_nota')
+                <div class="page-title-right">
+                    <a href="{{route("nota.create")}}" class="btn btn-outline-secondary waves-effect">Nova Nota Fiscal</a>
+                </div>
+            @endcan
         </div>
     </div>
 </div>

@@ -18,16 +18,21 @@ class PainelController extends Controller
     public function index()
     {
 
-        if(Gate::denies('view_painel')){
+        if(Gate::denies('view_score')){
             return redirect()->route('logout');
         }
 
         $user = Auth()->User();
 
-        //$search_tools = 'Teste';
+        $roles = $user->roles;
+
+        if ($roles->contains('name', 'Cliente')){
+            return redirect()->route('score.index');
+        } else{
+            return view('painel.index', compact('user'));
+        }
 
         return view('painel.index', compact('user'));
-        //return redirect()->route('resultado.index');
     }
 
 
