@@ -200,7 +200,7 @@
                 language: {
                     url: '{{asset('nazox/assets/localisation/pt_br.json')}}'
                 },
-                "order": [[ 1, "desc" ]]
+                "order": [[ 0, "desc" ]]
             });
         </script>
     @endif
@@ -211,7 +211,7 @@
                 language: {
                     url: '{{asset('nazox/assets/localisation/pt_br.json')}}'
                 },
-                "order": [[ 1, "desc" ]]
+                "order": [[ 0, "desc" ]]
             });
         </script>
     @endif
