@@ -109,7 +109,12 @@ class ScoreController extends Controller
             $cont++;
         }
 
-        return view('painel.movimento.score.index', compact('user', 'scores'));
+        $score_promocaos =  Bilhete::join('promocaos', 'bilhetes.promocao_id', 'promocaos.id')
+                                    ->groupBy('promocaos.nome')
+                                    ->select('promocaos.nome', DB::raw('count(bilhetes.numero_sorte) as qtd_bilhetes'))
+                                    ->get();
+
+        return view('painel.movimento.score.index', compact('user', 'scores', 'score_promocaos'));
     }
 
 

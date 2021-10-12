@@ -161,7 +161,7 @@ class NotaController extends Controller
             $request->session()->flash('message.content', $message);
         } else {
             $request->session()->flash('message.level', 'success');
-            $request->session()->flash('message.content', 'A Nota registrada em <code class="highlighter-rouge">'. $request->data_criacao_formatada .'</code> foi criada com sucesso');
+            $request->session()->flash('message.content', 'Parabéns! Sua nota foi enviada com sucesso. Em breve você receberá um e-mail de confirmação');
         }
 
         return redirect()->route('nota.index');

@@ -42,13 +42,22 @@
                             </span>
                         </a>
                     </li>
+                    @if($user->roles->contains('name', 'Gestor'))
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#score_promocao" role="tab">
+                                <span class="d-block d-sm-none"></span>
+                                <span class="d-sm-block">Promoção x Score
+                                </span>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
                 <!-- Nav tabs - LISTA - FIM -->
 
                 <!-- Tab panes -->
                 <div class="tab-content p-3 text-muted">
 
-                <!-- Nav tabs - LISTA PENDENTE - INI -->
+                <!-- Nav tabs - LISTA ATIVA - INI -->
                 <div class="tab-pane active" id="ativa" role="tabpanel">
                     <table id="dt_score" class="table table-striped table-bordered nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
@@ -97,7 +106,35 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- Nav tabs - LISTA PENDENTE - FIM -->
+                <!-- Nav tabs - LISTA ATIVA - FIM -->
+
+                @if($user->roles->contains('name', 'Gestor'))
+                    <!-- Nav tabs - LISTA PROMOCAO X SCORE - INI -->
+                    <div class="tab-pane active" id="score_promocao" role="tabpanel">
+                        <table id="dt_score_promocao" class="table table-striped table-bordered nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                            <tr>
+                                <th>Promoção</th>
+                                <th>Quantidade Bilhetes</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            @forelse($score_promocaos as $score_promocao)
+                            <tr>
+                                <td>{{$score_promocao->nome}}</td>
+                                <td>{{$score_promocao->qtd_bilhetes}}</td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="2">Nenhum registro encontrado</td>
+                            </tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+                <!-- Nav tabs - LISTA PROMOCAO X SCORE - FIM -->
 
             </div>
         </div>
@@ -128,5 +165,17 @@
         </script>
     @endif
 
+    @if($user->roles->contains('name', 'Gestor'))
+        @if(count($score_promocaos) > 0)
+            <script>
+                var table_SC = $('#dt_score_promocao').DataTable({
+                    language: {
+                        url: '{{asset('nazox/assets/localisation/pt_br.json')}}'
+                    },
+                    "order": [0, "asc"],
+                });
+            </script>
+        @endif
+    @endif
 
 @endsection
