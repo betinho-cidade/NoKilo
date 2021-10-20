@@ -160,6 +160,13 @@ class PermissionSeeder extends Seeder
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ],
+                [
+                    'id' => 22,
+                    'name' => 'view_report',
+                    'description' => 'Visualizar os reports/indicadors do sistema sistema',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ],
 
             ]);
         } else {

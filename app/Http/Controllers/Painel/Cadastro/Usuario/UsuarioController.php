@@ -48,6 +48,9 @@ class UsuarioController extends Controller
                             ->select('users.*')
                             ->get();
 
+        $users_AT = [];
+        $users_IN = [];
+
 
         return view('painel.cadastro.usuario.index', compact('user', 'users_AT', 'users_IN'));
     }

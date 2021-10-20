@@ -49,6 +49,9 @@
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('nota.index') }}">Notas Fiscais</a></li>
                                     <li><a href="{{ route('score.index') }}">Pontos / Bilhetes Gerados</a></li>
+                                    @if($user->roles->contains('name', 'Gestor'))
+                                        <li><a href="{{ route('report.index') }}">Franquia x Notas</a></li>
+                                    @endif
                                 </ul>
                             </li>
                             {{--  <li>

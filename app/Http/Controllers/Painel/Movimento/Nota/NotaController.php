@@ -60,7 +60,7 @@ class NotaController extends Controller
                 $query->where('franquia_id', $data['franquia_id']);
 
             } else if($data['role'] == 'Gestor') {
-                return null;
+                $query->where('franquia_id', '-0');
 
             } else {
                 $query->where('franquia_id', '-0');
@@ -68,8 +68,14 @@ class NotaController extends Controller
         })
         ->get();
 
+        if($roles->first()->name == 'Gestor'){
+            $franquias = Franquia::orderBy('nome', 'asc')->get();
 
-        return view('painel.movimento.nota.index', compact('user', 'notas'));
+        } else{
+            $franquias = [];
+        }
+
+        return view('painel.movimento.nota.index', compact('user', 'notas', 'franquias'));
     }
 
 
@@ -429,6 +435,57 @@ class NotaController extends Controller
             abort('403', 'Página não disponível');
         }
 
+    }
+
+
+    public function search(Request $request)
+    {
+        if(Gate::denies('view_nota')){
+            abort('403', 'Página não disponível');
+            //return redirect()->back();
+        }
+
+        $user = Auth()->User();
+
+        $roles = $user->roles;
+
+        if($roles->first()->name == 'Gestor'){
+            $franquias = Franquia::orderBy('nome', 'asc')->get();
+
+        } else{
+            $franquias = [];
+        }
+
+        $data = [
+            'user_id' => $user->id,
+            'role' => $roles->first()->name,
+            'franquia_id' => $user->franquia->id ?? null,
+            'search_franquia' => $request->search_franquia,
+        ];
+
+        $notas = Nota::where(function($query) use ($data){
+
+            if ($data['role'] == 'Cliente') {
+                $query->where('user_id', $data['user_id']);
+
+            } else if (($data['role'] == 'Franquia') && ($data['franquia_id'])) {
+                $query->where('franquia_id', $data['franquia_id']);
+
+            } else if($data['role'] == 'Gestor') {
+                if($data['search_franquia'] && $data['search_franquia'] != 'T'){
+                    $query->where('franquia_id', $data['search_franquia']);
+                } else {
+                    return null;
+                }
+
+            } else {
+                $query->where('franquia_id', '-0');
+            }
+        })
+        ->get();
+
+
+        return view('painel.movimento.nota.index', compact('user', 'notas', 'franquias'));
     }
 
 }

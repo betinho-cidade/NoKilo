@@ -50,13 +50,13 @@
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#ativa" role="tab">
                             <span class="d-block d-sm-none"><i class="ri-checkbox-circle-line"></i></span>
-                            <span class="d-none d-sm-block">Usuários Ativos ( <code class="highlighter-rouge">{{$users_AT->count()}}</code> )</span>
+                            <span class="d-none d-sm-block">Usuários Ativos ( <code class="highlighter-rouge">{{($users_AT) ? $users_AT->count() : 0}}</code> )</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#inativa" role="tab">
                             <span class="d-block d-sm-none"><i class=" ri-close-circle-line"></i></span>
-                            <span class="d-none d-sm-block">Usuários Inativos ( <code class="highlighter-rouge">{{$users_IN->count()}}</code> )</span>
+                            <span class="d-none d-sm-block">Usuários Inativos ( <code class="highlighter-rouge">{{($users_IN) ? $users_IN->count() : 0}}</code> )</span>
                         </a>
                     </li>
                 </ul>
@@ -79,40 +79,46 @@
                         </thead>
 
                         <tbody>
-                        @forelse($users_AT as $usuario)
-                        <tr>
-                            <td>{{$usuario->id}}</td>
-                            <td>{{$usuario->name}} - {{ $usuario->end_cidade}}/{{ $usuario->end_uf }}</td>
-                            <td>{{$usuario->email}}</td>
-                            <td style="text-align:center;">{{$usuario->perfil}}</td>
-                            <td style="text-align:center;">
+                        @if($users_AT)
+                            @forelse($users_AT as $usuario)
+                            <tr>
+                                <td>{{$usuario->id}}</td>
+                                <td>{{$usuario->name}} - {{ $usuario->end_cidade}}/{{ $usuario->end_uf }}</td>
+                                <td>{{$usuario->email}}</td>
+                                <td style="text-align:center;">{{$usuario->perfil}}</td>
+                                <td style="text-align:center;">
 
-                            @can('edit_usuario')
-                                <a href="{{route('usuario.show', compact('usuario'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Editar o Usuário"></i></a>
-                            @endcan
+                                @can('edit_usuario')
+                                    <a href="{{route('usuario.show', compact('usuario'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Editar o Usuário"></i></a>
+                                @endcan
 
-                            @can('delete_usuario')
-                                <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$usuario->id}})"
-                                    data-target="#modal-delete-usuario"><i class="fa fa-minus-circle" style="color: crimson" title="Excluir o Usuário"></i></a>
-                                    <form action="" id="deleteForm" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    </form>
-                                    @section('modal_target')"formSubmit();"@endsection
-                                    @section('modal_type')@endsection
-                                    @section('modal_name')"modal-delete-usuario"@endsection
-                                    @section('modal_msg_title')Deseja excluir o registro ? @endsection
-                                    @section('modal_msg_description')O registro selecionado será excluído definitivamente, BEM COMO TODOS seus relacionamentos. @endsection
-                                    @section('modal_close')Fechar @endsection
-                                    @section('modal_save')Excluir @endsection
-                            @endcan
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="5">Nenhum registro encontrado</td>
-                        </tr>
-                        @endforelse
+                                @can('delete_usuario')
+                                    <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$usuario->id}})"
+                                        data-target="#modal-delete-usuario"><i class="fa fa-minus-circle" style="color: crimson" title="Excluir o Usuário"></i></a>
+                                        <form action="" id="deleteForm" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        </form>
+                                        @section('modal_target')"formSubmit();"@endsection
+                                        @section('modal_type')@endsection
+                                        @section('modal_name')"modal-delete-usuario"@endsection
+                                        @section('modal_msg_title')Deseja excluir o registro ? @endsection
+                                        @section('modal_msg_description')O registro selecionado será excluído definitivamente, BEM COMO TODOS seus relacionamentos. @endsection
+                                        @section('modal_close')Fechar @endsection
+                                        @section('modal_save')Excluir @endsection
+                                @endcan
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="5">Nenhum registro encontrado. Escolha uma opção no filtro ao lado.</td>
+                            </tr>
+                            @endforelse
+                        @else
+                            <tr>
+                                <td colspan="5">Nenhum registro encontrado. Escolha uma opção no filtro ao lado.</td>
+                            </tr>
+                        @endif
                         </tbody>
                     </table>
                     <!-- Nav tabs - LISTA USUARIO - ATIVA - FIM -->
@@ -133,40 +139,46 @@
                         </thead>
 
                         <tbody>
-                        @forelse($users_IN as $usuario)
-                        <tr>
-                            <td>{{$usuario->id}}</td>
-                            <td>{{$usuario->name}} - {{ $usuario->end_cidade}}/{{ $usuario->end_uf }}</td>
-                            <td>{{$usuario->email}}</td>
-                            <td style="text-align:center;">{{$usuario->perfil}}</td>
-                            <td style="text-align:center;">
+                        @if($users_IN)
+                            @forelse($users_IN as $usuario)
+                            <tr>
+                                <td>{{$usuario->id}}</td>
+                                <td>{{$usuario->name}} - {{ $usuario->end_cidade}}/{{ $usuario->end_uf }}</td>
+                                <td>{{$usuario->email}}</td>
+                                <td style="text-align:center;">{{$usuario->perfil}}</td>
+                                <td style="text-align:center;">
 
-                            @can('edit_usuario')
-                                <a href="{{route('usuario.show', compact('usuario'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Editar o Usuário"></i></a>
-                            @endcan
+                                @can('edit_usuario')
+                                    <a href="{{route('usuario.show', compact('usuario'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Editar o Usuário"></i></a>
+                                @endcan
 
-                            @can('delete_usuario')
-                                <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$usuario->id}})"
-                                    data-target="#modal-delete-usuario"><i class="fa fa-minus-circle" style="color: crimson" title="Excluir o Usuário"></i></a>
-                                    <form action="" id="deleteForm" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    </form>
-                                    @section('modal_target')"formSubmit();"@endsection
-                                    @section('modal_type')@endsection
-                                    @section('modal_name')"modal-delete-usuario"@endsection
-                                    @section('modal_msg_title')Deseja excluir o registro ? @endsection
-                                    @section('modal_msg_description')O registro selecionado será excluído definitivamente, BEM COMO TODOS seus relacionamentos. @endsection
-                                    @section('modal_close')Fechar @endsection
-                                    @section('modal_save')Excluir @endsection
-                            @endcan
-                            </td>
-                          </tr>
-                        @empty
-                        <tr>
-                            <td colspan="6">Nenhum registro encontrado</td>
-                        </tr>
-                        @endforelse
+                                @can('delete_usuario')
+                                    <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$usuario->id}})"
+                                        data-target="#modal-delete-usuario"><i class="fa fa-minus-circle" style="color: crimson" title="Excluir o Usuário"></i></a>
+                                        <form action="" id="deleteForm" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        </form>
+                                        @section('modal_target')"formSubmit();"@endsection
+                                        @section('modal_type')@endsection
+                                        @section('modal_name')"modal-delete-usuario"@endsection
+                                        @section('modal_msg_title')Deseja excluir o registro ? @endsection
+                                        @section('modal_msg_description')O registro selecionado será excluído definitivamente, BEM COMO TODOS seus relacionamentos. @endsection
+                                        @section('modal_close')Fechar @endsection
+                                        @section('modal_save')Excluir @endsection
+                                @endcan
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="5">Nenhum registro encontrado. Escolha uma opção no filtro ao lado.</td>
+                            </tr>
+                            @endforelse
+                        @else
+                            <tr>
+                                <td colspan="5">Nenhum registro encontrado. Escolha uma opção no filtro ao lado.</td>
+                            </tr>
+                        @endif
                         </tbody>
                     </table>
                     <!-- Nav tabs - LISTA USUARIO - INATIVA - FIM -->
@@ -194,7 +206,7 @@
 
     <script src="{{asset('nazox/assets/js/pages/form-validation.init.js')}}"></script>
 
-    @if($users_AT->count() > 0)
+    @if($users_AT && $users_AT->count() > 0)
         <script>
             var table_AT = $('#dt_users_AT').DataTable({
                 language: {
@@ -205,7 +217,7 @@
         </script>
     @endif
 
-    @if($users_IN->count() > 0)
+    @if($users_IN && $users_IN->count() > 0)
         <script>
             var table_IN = $('#dt_users_IN').DataTable({
                 language: {

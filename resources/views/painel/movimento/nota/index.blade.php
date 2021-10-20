@@ -30,6 +30,22 @@
         <div class="card">
             <div class="card-body">
 
+                @if($user->roles->first()->name == 'Gestor')
+                    <form action="" id="search_nota" method="POST">
+                        @csrf
+                        <span class="float-right">
+                            <select id="search_franquia" name="search_franquia" class="form-control dynamic">
+                                <option value="">---</option>
+                                <option value="T    ">Todas</option>
+                                @foreach($franquias as $franquia)
+                                    <option value="{{ $franquia->id }}">{{ $franquia->nome }}</option>
+                                @endforeach
+                            </select>
+                        </span>
+                    </form>
+                @endif
+
+
                 <h4 class="card-title">Listagem das Notas Fiscais</h4>
                 <p class="card-title-desc"></p>
 
@@ -38,21 +54,21 @@
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#pendente" role="tab">
                             <span class="d-block d-sm-none"></span>
-                            <span class="d-sm-block">Notas Pendentes ( <code class="highlighter-rouge">{{$notas->where('status', 'P')->count()}}</code> )
+                            <span class="d-sm-block">Notas Pendentes ( <code class="highlighter-rouge">{{($notas) ? $notas->where('status', 'P')->count() : 0}}</code> )
                             </span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#aprovada" role="tab">
                             <span class="d-block d-sm-none"></span>
-                            <span class="d-sm-block">Notas Aprovadas ( <code class="highlighter-rouge">{{$notas->where('status', 'A')->count()}}</code> )
+                            <span class="d-sm-block">Notas Aprovadas ( <code class="highlighter-rouge">{{($notas) ? $notas->where('status', 'A')->count() : 0}}</code> )
                             </span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#reprovada" role="tab">
                             <span class="d-block d-sm-none"></span>
-                            <span class="d-sm-block">Notas Reprovadas ( <code class="highlighter-rouge">{{$notas->where('status', 'R')->count()}}</code> )
+                            <span class="d-sm-block">Notas Reprovadas ( <code class="highlighter-rouge">{{($notas) ? $notas->where('status', 'R')->count() : 0}}</code> )
                             </span>
                         </a>
                     </li>
@@ -79,47 +95,53 @@
                         </thead>
 
                         <tbody>
-                        @forelse($notas->where('status', 'P') as $nota)
-                        <tr>
-                            <td>{{$nota->data_nota_ordenacao}}</td>
-                            <td>{{$nota->user->name}} - {{ $nota->user->end_cidade}}/{{ $nota->user->end_uf }}</td>
-                            <td style="text-align:center;">
-                                <a href="{{ route('nota.download', compact('nota')) }}">
-                                    <i class="mdi mdi-file-download mdi-18px" style="color: goldenrod;cursor: pointer" title="Download da Nota"></i>
-                                </a>
-                            </td>
-                            <td>{{$nota->promocao->nome}}</td>
-                            <td>{{$nota->franquia->nome}} - {{ $nota->franquia->end_cidade}}/{{ $nota->franquia->end_uf }}</td>
-                            <td>{{$nota->data_nota_formatada}}</td>
-                            <td>{{$nota->valor_nota}}</td>
-                            <td style="text-align:center;">
+                        @if($notas)
+                            @forelse($notas->where('status', 'P') as $nota)
+                            <tr>
+                                <td>{{$nota->data_nota_ordenacao}}</td>
+                                <td>{{$nota->user->name}} - {{ $nota->user->end_cidade}}/{{ $nota->user->end_uf }}</td>
+                                <td style="text-align:center;">
+                                    <a href="{{ route('nota.download', compact('nota')) }}">
+                                        <i class="mdi mdi-file-download mdi-18px" style="color: goldenrod;cursor: pointer" title="Download da Nota"></i>
+                                    </a>
+                                </td>
+                                <td>{{$nota->promocao->nome}}</td>
+                                <td>{{$nota->franquia->nome}} - {{ $nota->franquia->end_cidade}}/{{ $nota->franquia->end_uf }}</td>
+                                <td>{{$nota->data_nota_formatada}}</td>
+                                <td>{{$nota->valor_nota}}</td>
+                                <td style="text-align:center;">
 
-                            @can('edit_nota')
-                                <a href="{{route('nota.show', compact('nota'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Editar a Nota Fiscal"></i></a>
-                            @endcan
+                                @can('edit_nota')
+                                    <a href="{{route('nota.show', compact('nota'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Editar a Nota Fiscal"></i></a>
+                                @endcan
 
-                            @can('delete_nota')
-                                <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$nota->id}})"
-                                    data-target="#modal-delete-nota"><i class="fa fa-minus-circle" style="color: crimson" title="Excluir a Nota Fiscal"></i></a>
-                                    <form action="" id="deleteForm" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    </form>
-                                    @section('modal_target')"formSubmit();"@endsection
-                                    @section('modal_type')@endsection
-                                    @section('modal_name')"modal-delete-nota"@endsection
-                                    @section('modal_msg_title')Deseja excluir o registro ? @endsection
-                                    @section('modal_msg_description')O registro selecionado será excluído definitivamente, BEM COMO TODOS seus relacionamentos. @endsection
-                                    @section('modal_close')Fechar @endsection
-                                    @section('modal_save')Excluir @endsection
-                            @endcan
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="8">Nenhum registro encontrado</td>
-                        </tr>
-                        @endforelse
+                                @can('delete_nota')
+                                    <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$nota->id}})"
+                                        data-target="#modal-delete-nota"><i class="fa fa-minus-circle" style="color: crimson" title="Excluir a Nota Fiscal"></i></a>
+                                        <form action="" id="deleteForm" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        </form>
+                                        @section('modal_target')"formSubmit();"@endsection
+                                        @section('modal_type')@endsection
+                                        @section('modal_name')"modal-delete-nota"@endsection
+                                        @section('modal_msg_title')Deseja excluir o registro ? @endsection
+                                        @section('modal_msg_description')O registro selecionado será excluído definitivamente, BEM COMO TODOS seus relacionamentos. @endsection
+                                        @section('modal_close')Fechar @endsection
+                                        @section('modal_save')Excluir @endsection
+                                @endcan
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="8">Nenhum registro encontrado. Escolha uma FRANQUIA no filtro ao lado.</td>
+                            </tr>
+                            @endforelse
+                        @else
+                            <tr>
+                                <td colspan="8">Nenhum registro encontrado. Escolha uma FRANQUIA no filtro ao lado.</td>
+                            </tr>
+                        @endif
                         </tbody>
                     </table>
                 </div>
@@ -141,25 +163,31 @@
                         </thead>
 
                         <tbody>
-                        @forelse($notas->where('status', 'A') as $nota)
-                        <tr>
-                            <td>{{$nota->data_nota_ordenacao}}</td>
-                            <td>{{$nota->user->name}} - {{ $nota->user->end_cidade}}/{{ $nota->user->end_uf }}</td>
-                            <td style="text-align:center;">
-                                <a href="{{ route('nota.download', compact('nota')) }}">
-                                    <i class="mdi mdi-file-download mdi-18px" style="color: goldenrod;cursor: pointer" title="Download da Nota"></i>
-                                </a>
-                            </td>
-                            <td>{{$nota->promocao->nome}}</td>
-                            <td>{{$nota->franquia->nome}} - {{ $nota->franquia->end_cidade}}/{{ $nota->franquia->end_uf }}</td>
-                            <td>{{$nota->data_nota_formatada}}</td>
-                            <td>{{$nota->valor_nota}}</td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="7">Nenhum registro encontrado</td>
-                        </tr>
-                        @endforelse
+                        @if($notas)
+                            @forelse($notas->where('status', 'A') as $nota)
+                            <tr>
+                                <td>{{$nota->data_nota_ordenacao}}</td>
+                                <td>{{$nota->user->name}} - {{ $nota->user->end_cidade}}/{{ $nota->user->end_uf }}</td>
+                                <td style="text-align:center;">
+                                    <a href="{{ route('nota.download', compact('nota')) }}">
+                                        <i class="mdi mdi-file-download mdi-18px" style="color: goldenrod;cursor: pointer" title="Download da Nota"></i>
+                                    </a>
+                                </td>
+                                <td>{{$nota->promocao->nome}}</td>
+                                <td>{{$nota->franquia->nome}} - {{ $nota->franquia->end_cidade}}/{{ $nota->franquia->end_uf }}</td>
+                                <td>{{$nota->data_nota_formatada}}</td>
+                                <td>{{$nota->valor_nota}}</td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="7">Nenhum registro encontrado. Escolha uma FRANQUIA no filtro ao lado.</td>
+                            </tr>
+                            @endforelse
+                        @else
+                            <tr>
+                                <td colspan="7">Nenhum registro encontrado. Escolha uma FRANQUIA no filtro ao lado.</td>
+                            </tr>
+                        @endif
                         </tbody>
                     </table>
                 </div>
@@ -181,46 +209,52 @@
                         </thead>
 
                         <tbody>
-                        @forelse($notas->where('status', 'R') as $nota)
-                        <tr>
-                            <td>{{$nota->data_nota_ordenacao}}</td>
-                            <td>{{$nota->user->name}} - {{ $nota->user->end_cidade}}/{{ $nota->user->end_uf }}</td>
-                            <td style="text-align:center;">
-                                <a href="{{ route('nota.download', compact('nota')) }}">
-                                    <i class="mdi mdi-file-download mdi-18px" style="color: goldenrod;cursor: pointer" title="Download da Nota"></i>
-                                </a>
-                            </td>
-                            <td>{{$nota->promocao->nome}}</td>
-                            <td>{{$nota->franquia->nome}} - {{ $nota->franquia->end_cidade}}/{{ $nota->franquia->end_uf }}</td>
-                            <td title="{{$nota->motivo_reprovacao}}">{{$nota->motivo_reprovacao_resumida}}</td>
-                            <td style="text-align:center;">
+                        @if($notas)
+                            @forelse($notas->where('status', 'R') as $nota)
+                            <tr>
+                                <td>{{$nota->data_nota_ordenacao}}</td>
+                                <td>{{$nota->user->name}} - {{ $nota->user->end_cidade}}/{{ $nota->user->end_uf }}</td>
+                                <td style="text-align:center;">
+                                    <a href="{{ route('nota.download', compact('nota')) }}">
+                                        <i class="mdi mdi-file-download mdi-18px" style="color: goldenrod;cursor: pointer" title="Download da Nota"></i>
+                                    </a>
+                                </td>
+                                <td>{{$nota->promocao->nome}}</td>
+                                <td>{{$nota->franquia->nome}} - {{ $nota->franquia->end_cidade}}/{{ $nota->franquia->end_uf }}</td>
+                                <td title="{{$nota->motivo_reprovacao}}">{{$nota->motivo_reprovacao_resumida}}</td>
+                                <td style="text-align:center;">
 
-                            @can('edit_nota')
-                                <a href="{{route('nota.show', compact('nota'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Editar a Nota Fiscal"></i></a>
-                            @endcan
+                                @can('edit_nota')
+                                    <a href="{{route('nota.show', compact('nota'))}}"><i class="fa fa-edit" style="color: goldenrod" title="Editar a Nota Fiscal"></i></a>
+                                @endcan
 
-                            @can('delete_nota')
-                                <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$nota->id}})"
-                                    data-target="#modal-delete-nota"><i class="fa fa-minus-circle" style="color: crimson" title="Excluir a Nota Fiscal"></i></a>
-                                    <form action="" id="deleteForm" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    </form>
-                                    @section('modal_target')"formSubmit();"@endsection
-                                    @section('modal_type')@endsection
-                                    @section('modal_name')"modal-delete-nota"@endsection
-                                    @section('modal_msg_title')Deseja excluir o registro ? @endsection
-                                    @section('modal_msg_description')O registro selecionado será excluído definitivamente, BEM COMO TODOS seus relacionamentos. @endsection
-                                    @section('modal_close')Fechar @endsection
-                                    @section('modal_save')Excluir @endsection
-                            @endcan
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="7">Nenhum registro encontrado</td>
-                        </tr>
-                        @endforelse
+                                @can('delete_nota')
+                                    <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$nota->id}})"
+                                        data-target="#modal-delete-nota"><i class="fa fa-minus-circle" style="color: crimson" title="Excluir a Nota Fiscal"></i></a>
+                                        <form action="" id="deleteForm" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        </form>
+                                        @section('modal_target')"formSubmit();"@endsection
+                                        @section('modal_type')@endsection
+                                        @section('modal_name')"modal-delete-nota"@endsection
+                                        @section('modal_msg_title')Deseja excluir o registro ? @endsection
+                                        @section('modal_msg_description')O registro selecionado será excluído definitivamente, BEM COMO TODOS seus relacionamentos. @endsection
+                                        @section('modal_close')Fechar @endsection
+                                        @section('modal_save')Excluir @endsection
+                                @endcan
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="7">Nenhum registro encontrado. Escolha uma FRANQUIA no filtro ao lado.</td>
+                            </tr>
+                            @endforelse
+                        @else
+                            <tr>
+                                <td colspan="7">Nenhum registro encontrado. Escolha uma FRANQUIA no filtro ao lado.</td>
+                            </tr>
+                        @endif
                         </tbody>
                     </table>
                 </div>
@@ -245,7 +279,7 @@
    <!-- Datatable init js -->
     <script src="{{asset('nazox/assets/js/pages/datatables.init.js')}}"></script>
 
-    @if($notas->where('status', 'P')->count() > 0)
+    @if($notas && $notas->where('status', 'P')->count() > 0)
         <script>
             var table_PD = $('#dt_notas_PD').DataTable({
                 language: {
@@ -262,7 +296,7 @@
         </script>
     @endif
 
-    @if($notas->where('status', 'A')->count() > 0)
+    @if($notas && $notas->where('status', 'A')->count() > 0)
         <script>
             var table_PD = $('#dt_notas_AP').DataTable({
                 language: {
@@ -279,7 +313,7 @@
         </script>
     @endif
 
-    @if($notas->where('status', 'R')->count() > 0)
+    @if($notas && $notas->where('status', 'R')->count() > 0)
         <script>
             var table_PD = $('#dt_notas_RP').DataTable({
                 language: {
@@ -310,5 +344,20 @@
            $("#deleteForm").submit();
        }
     </script>
+
+    @if($user->roles->first()->name == 'Gestor')
+        <script type='text/javascript'>
+            $(document).ready(function(){
+            $('.dynamic').change(function(){
+
+                    if ($(this).val() != ''){
+                        var url = '{{ route("nota.search") }}';
+                        $("#search_nota").attr('action', url);
+                        $("#search_nota").submit();
+                    }
+                });
+            });
+        </script>
+    @endif
 
 @endsection

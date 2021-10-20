@@ -65,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
         Route::group(['namespace' => 'Movimento'], function(){
             Route::group(['namespace' => 'Nota'], function(){
                 Route::get('/nota', 'NotaController@index')->name('nota.index');
+                Route::post('/nota/search', 'NotaController@search')->name('nota.search');
                 Route::get('/nota/create', 'NotaController@create')->name('nota.create');
                 Route::post('/nota/store', 'NotaController@store')->name('nota.store');
                 Route::get('/nota/{nota}', 'NotaController@show')->name('nota.show');
@@ -75,6 +76,10 @@ Route::middleware(['auth'])->group(function () {
             Route::group(['namespace' => 'Score'], function(){
                 Route::get('/score', 'ScoreController@index')->name('score.index');
                 Route::get('/score/promocao/{promocao}/cliente/{cliente}/show', 'ScoreController@show')->name('score.show');
+            });
+
+            Route::group(['namespace' => 'Report'], function(){
+                Route::get('/report', 'ReportController@index')->name('report.index');
             });
         });
 
