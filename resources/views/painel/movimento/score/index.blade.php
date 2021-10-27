@@ -51,6 +51,17 @@
                             </a>
                         </li>
                     @endif
+
+                    @if($scores)
+                        <span class="float-right" style="font-size: 12px;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            Registros: {{ ($scores->lastItem()) ? $scores->lastItem() : 0}} / {{ $scores->total() }} &nbsp;&nbsp;&nbsp;
+                            Página: {{ $scores->currentPage() }} / {{ $scores->lastPage() }} &nbsp;&nbsp;&nbsp;
+                            @if($scores->previousPageUrl()) <a href="{{ $scores->previousPageUrl()}}"> <i class="mdi mdi-skip-previous" style="font-size: 16px;" title="Anterior"></i>  </a> @else <i class="mdi mdi-dots-horizontal" style="font-size: 16px;" title="..."></i> @endif
+                            @if($scores->hasMorePages()) <a href="{{ $scores->nextPageUrl()}}"> <i class="mdi mdi-skip-next" style="font-size: 16px;" title="Próximo"></i>  </a> @else <i class="mdi mdi-dots-horizontal" style="font-size: 16px;" title="..."></i> @endif
+                        </span>
+                        <br>
+                    @endif
                 </ul>
                 <!-- Nav tabs - LISTA - FIM -->
 
@@ -110,7 +121,7 @@
 
                 @if($user->roles->contains('name', 'Gestor'))
                     <!-- Nav tabs - LISTA PROMOCAO X SCORE - INI -->
-                    <div class="tab-pane active" id="score_promocao" role="tabpanel">
+                    <div class="tab-pane" id="score_promocao" role="tabpanel">
                         <table id="dt_score_promocao" class="table table-striped table-bordered nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                             <tr>

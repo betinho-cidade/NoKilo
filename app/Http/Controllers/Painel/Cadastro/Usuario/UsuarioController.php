@@ -35,24 +35,11 @@ class UsuarioController extends Controller
 
         $user = Auth()->User();
 
-        $users_AT = User::join('role_user', 'role_user.user_id', 'users.id')
-                            ->where('role_user.status','A')
-                            ->orderBy('users.id', 'desc')
-                            ->select('users.*')
-                            ->get();
+        $users = [];
 
+        $search = [];
 
-        $users_IN = User::join('role_user', 'role_user.user_id', 'users.id')
-                            ->where('role_user.status','I')
-                            ->orderBy('users.id', 'desc')
-                            ->select('users.*')
-                            ->get();
-
-        $users_AT = [];
-        $users_IN = [];
-
-
-        return view('painel.cadastro.usuario.index', compact('user', 'users_AT', 'users_IN'));
+        return view('painel.cadastro.usuario.index', compact('user', 'users', 'search'));
     }
 
 
@@ -274,53 +261,38 @@ class UsuarioController extends Controller
 
         $user = Auth()->User();
 
-        $search = ($request->perfil) ? $request->perfil : '';
+        $search = [
+            'perfil' => ($request->perfil) ? $request->perfil : '',
+            'situacao' => $request->situacao,
+            'nome' => $request->nome,
+        ];
 
-        $users_AT = User::join('role_user', 'role_user.user_id', 'users.id')
-                            ->where('role_user.status','A')
+        $users= User::join('role_user', 'role_user.user_id', 'users.id')
+                            ->where('role_user.status', $search['situacao'])
                             ->join('roles', 'role_user.role_id', '=', 'roles.id')
                             ->where(function($query) use ($search){
-                                if($search){
-
-                                    if($search == 'G'){
+                                if($search['perfil']){
+                                    if($search['perfil'] == 'G'){
                                         $query->where('roles.name', 'Gestor');
                                     }
-                                    elseif($search == 'F'){
+                                    elseif($search['perfil'] == 'F'){
                                         $query->where('roles.name', 'Franquia');
                                     }
-                                    elseif($search == 'C'){
+                                    elseif($search['perfil'] == 'C'){
                                         $query->where('roles.name', 'Cliente');
                                     }
+                                }
+
+                                if($search['nome']){
+                                    $query->where('users.name', 'like', $search['nome']);
                                 }
                             })
                             ->orderBy('users.id', 'desc')
                             ->select('users.*')
-                            ->get();
+                            ->paginate(300);
 
 
-        $users_IN = User::join('role_user', 'role_user.user_id', 'users.id')
-                            ->where('role_user.status','i')
-                            ->join('roles', 'role_user.role_id', '=', 'roles.id')
-                            ->where(function($query) use ($search){
-                                if($search){
-
-                                    if($search == 'G'){
-                                        $query->where('roles.name', 'Gestor');
-                                    }
-                                    elseif($search == 'F'){
-                                        $query->where('roles.name', 'Franquia');
-                                    }
-                                    elseif($search == 'C'){
-                                        $query->where('roles.name', 'Cliente');
-                                    }
-                                }
-                            })
-                            ->orderBy('users.id', 'desc')
-                            ->select('users.*')
-                            ->get();
-
-
-        return view('painel.cadastro.usuario.index', compact('user', 'users_AT', 'users_IN'));
+        return view('painel.cadastro.usuario.index', compact('user', 'users', 'search'));
     }
 
 

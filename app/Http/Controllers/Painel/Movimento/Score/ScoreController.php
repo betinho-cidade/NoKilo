@@ -17,6 +17,10 @@ use App\Http\Requests\Movimento\Nota\UpdateRequest;
 use Image;
 use Carbon\Carbon;
 
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 class ScoreController extends Controller
 {
@@ -27,7 +31,7 @@ class ScoreController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
         if(Gate::denies('view_score')){
             abort('403', 'Página não disponível');
@@ -65,7 +69,7 @@ class ScoreController extends Controller
                         ->groupBy('promocaos.id', 'promocaos.nome', 'users.id', 'users.name', 'users.end_cidade', 'users.end_uf')
                         ->orderBy('promocaos.nome')
                         ->orderBy('users.name')
-                        ->get();
+                        ->paginate(300);
 
         $scores = [];
         $cont = 0;
@@ -114,6 +118,9 @@ class ScoreController extends Controller
                                     ->select('promocaos.nome', DB::raw('count(bilhetes.numero_sorte) as qtd_bilhetes'))
                                     ->get();
 
+
+        $scores= $this->paginate($scores, $clientes->perPage(), $clientes->currentPage(), $clientes->getOptions(), $clientes->total());//
+
         return view('painel.movimento.score.index', compact('user', 'scores', 'score_promocaos'));
     }
 
@@ -146,9 +153,17 @@ class ScoreController extends Controller
 
         $nome_cliente = $cliente->name;
 
-
         return view('painel.movimento.score.show', compact('user', 'pontos', 'bilhetes', 'promocao', 'nome_cliente'));
     }
 
+
+
+    public function paginate($items, $perPage = 1, $page = null, $options = [], $total)
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+
+        return new LengthAwarePaginator($items->forPage(1, $perPage), $total, $perPage, $page, $options);
+    } //$items->count()
 
 }
