@@ -30,6 +30,24 @@
         <div class="card">
             <div class="card-body">
 
+                @if($user->roles->contains('name', 'Gestor'))
+                <form id="search_bilhete" action="{{route('score.search')}}" method="GET">
+                    @csrf
+
+                    <span class="float-right">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="%nome%">
+                        </div>
+
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Filtrar</button>
+                        </div>
+                    </div>
+                    </span>
+                </form>
+                @endif
+
                 <h4 class="card-title">Minha lista de Pontos e Bilhetes Gerados</h4>
                 <p class="card-title-desc"></p>
 
@@ -50,17 +68,6 @@
                                 </span>
                             </a>
                         </li>
-                    @endif
-
-                    @if($scores)
-                        <span class="float-right" style="font-size: 12px;">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            Registros: {{ ($scores->lastItem()) ? $scores->lastItem() : 0}} / {{ $scores->total() }} &nbsp;&nbsp;&nbsp;
-                            Página: {{ $scores->currentPage() }} / {{ $scores->lastPage() }} &nbsp;&nbsp;&nbsp;
-                            @if($scores->previousPageUrl()) <a href="{{ $scores->previousPageUrl()}}"> <i class="mdi mdi-skip-previous" style="font-size: 16px;" title="Anterior"></i>  </a> @else <i class="mdi mdi-dots-horizontal" style="font-size: 16px;" title="..."></i> @endif
-                            @if($scores->hasMorePages()) <a href="{{ $scores->nextPageUrl()}}"> <i class="mdi mdi-skip-next" style="font-size: 16px;" title="Próximo"></i>  </a> @else <i class="mdi mdi-dots-horizontal" style="font-size: 16px;" title="..."></i> @endif
-                        </span>
-                        <br>
                     @endif
                 </ul>
                 <!-- Nav tabs - LISTA - FIM -->
