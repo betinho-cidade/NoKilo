@@ -53,6 +53,7 @@
                             <th style="text-align: center">Pendentes</th>
                             <th style="text-align: center">Aprovadas</th>
                             <th style="text-align: center">Reprovadas</th>
+                            <th style="text-align: center">Clientes</th>
                         </tr>
                         </thead>
 
@@ -64,10 +65,11 @@
                             <td style="text-align: center">{{$franquia->pendente}}</td>
                             <td style="text-align: center">{{$franquia->aprovada}}</td>
                             <td style="text-align: center">{{$franquia->reprovada}}</td>
+                            <td style="text-align: center">{{$franquia->clientes}}</td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5">Nenhum registro encontrado</td>
+                            <td colspan="6">Nenhum registro encontrado</td>
                         </tr>
                         @endforelse
                         </tbody>

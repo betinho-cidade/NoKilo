@@ -35,7 +35,8 @@ class ReportController extends Controller
         $franquias = Nota::select("promocao_id","franquia_id",
                                     DB::raw("COUNT(CASE WHEN status = 'P' THEN 1 END) AS pendente"),
                                     DB::raw("COUNT(CASE WHEN status = 'A' THEN 1 END) AS aprovada"),
-                                    DB::raw("COUNT(CASE WHEN status = 'R' THEN 1 END) AS reprovada"))
+                                    DB::raw("COUNT(CASE WHEN status = 'R' THEN 1 END) AS reprovada"),
+                                    DB::raw("COUNT(distinct user_id) AS clientes"))
                                     ->groupBy(['promocao_id', 'franquia_id'])
                                     ->get();
 
