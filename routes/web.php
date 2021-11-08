@@ -97,5 +97,15 @@ Route::group(['namespace' => 'Guest'], function(){
         Route::get('/novo_cliente/bemvindo', 'ClienteController@bemvindo')->name('cliente.bemvindo');
         Route::post('/novo_cliente/js_viacep_new', 'ClienteController@js_viacep_new')->name('cliente.js_viacep_new');
     });
+
+    Route::group(['namespace' => 'ResetPassword'], function(){
+        Route::get('/forget-password', 'ForgotPasswordController@getEmail')->name('forgot.password');
+        Route::post('/forget-password', 'ForgotPasswordController@postEmail')->name('forgot.reset');
+
+        Route::get('/reset-password/{token}', 'ResetPasswordController@getPassword')->name('reset.password');
+        Route::post('/reset-password', 'ResetPasswordController@updatePassword')->name('reset');
+    });
+
 });
+
 

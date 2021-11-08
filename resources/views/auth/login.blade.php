@@ -74,6 +74,10 @@
                                                     <div class="mt-4 text-center">
                                                         <a href="{{ route('cliente.create') }}" class="text-muted"><i class="mdi mdi-lock mr-1"></i> Não é cadastrado? Clique aqui.</a>
                                                     </div>
+
+                                                    <div class="mt-4 text-center">
+                                                        <a href="{{ route('forgot.password') }}" class="text-muted"><i class="mdi mdi-lock mr-1"></i> Esqueci minha senha</a>
+                                                    </div>
                                                 </form>
                                             </div>
 
