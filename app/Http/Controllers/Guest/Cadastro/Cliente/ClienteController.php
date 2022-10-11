@@ -31,7 +31,6 @@ class ClienteController extends Controller
 
     public function store(CreateRequest $request)
     {
-
         $message = '';
 
         try {
@@ -53,6 +52,8 @@ class ClienteController extends Controller
             $usuario->end_complemento = $request->end_complemento;
             $usuario->email = $request->email;
             $usuario->password = bcrypt($request->password);
+            $usuario->privacidade = $request->privacidade ? 'S' : 'N';
+            $usuario->lgpd = $request->lgpd ? 'S' : 'N';
 
             $usuario->save();
 
@@ -133,6 +134,19 @@ class ClienteController extends Controller
         $mensagem = json_decode($result,true);
 
         echo json_encode($mensagem);
+    }
+
+
+    public function termo_privacidade(Request $request)
+    {
+
+        return view('guest.cadastro.termos.privacidade');
+    }
+
+    public function termo_lgpd(Request $request)
+    {
+
+        return view('guest.cadastro.termos.lgpd');
     }
 
 }

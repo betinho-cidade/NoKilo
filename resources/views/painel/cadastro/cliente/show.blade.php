@@ -41,7 +41,14 @@
             <div class="card-body">
             <!-- FORMULÁRIO - INICIO -->
 
+
+            @if($termo=='aceitar')
+            <h6 style="color: #ff0000; font-size: 16px; margin-bottom: 30px;">Você deve aceitar os termos da política de privacidade para continuar usando o portal.</h6>
+            @endif
+
+
             <h4 class="card-title">Formulário de Atualização - Cliente {{$user->name}}</h4>
+
             <p class="card-title-desc">Atualize seus dados conforme sua necessidade.</p>
 
             <form name="edit_usuario" method="POST" action="{{route('cliente.update', compact('user'))}}"  class="needs-validation" accept-charset="utf-8" enctype="multipart/form-data" novalidate>
@@ -188,6 +195,35 @@
                         </div>
                     </div>
                 <!-- Dados Pessoais -- FIM -->
+
+                <div class="row aceites">
+                    <div class="col-lg-12">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="privacidade" name="privacidade" required {{($user->privacidade && $user->privacidade == 'S') ? 'checked' : ''}}>
+                            <label class="custom-control-label" for="privacidade"></label>
+
+                            <a href="{{ route('cliente.termo_privacidade') }}" class="stretched-link" target="_blank">
+                                <label>Tenho conhecimento e aceito a política de privacidade</label>
+                            </a>
+
+                            <div class="invalid-feedback" style="margin: -6px 0 10px 0;">
+                                Você deve aceitar os termos da política de privacidade antes de enviar seu cadastro
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="lgpd" name="lgpd" {{($user->lgpd && $user->lgpd == 'S') ? 'checked' : ''}}>
+                            <label class="custom-control-label" for="lgpd"></label>
+
+                            <a href="{{ route('cliente.termo_lgpd') }}" class="stretched-link" target="_blank">
+                                <label>Autorizo o tratamento de dados pessoais para marketing de produtos e serviços</label>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <br>
 
                 <button class="btn btn-primary" type="submit">Atualizar Cadastro</button>
             </form>

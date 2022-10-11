@@ -25,7 +25,7 @@ class ClienteController extends Controller
     }
 
 
-    public function show(User $user)
+    public function show(User $user, Request $request)
     {
 
         if(Gate::denies('view_cliente')){
@@ -39,7 +39,9 @@ class ClienteController extends Controller
             abort('403', 'Página não disponível');
         }
 
-        return view('painel.cadastro.cliente.show', compact('user'));
+        $termo = $request->termo ? $request->termo : '';
+
+        return view('painel.cadastro.cliente.show', compact('user', 'termo'));
     }
 
 
@@ -76,6 +78,8 @@ class ClienteController extends Controller
             $user->end_bairro = $request->end_bairro;
             $user->end_complemento = $request->end_complemento;
             $user->email = $request->email;
+            $user->privacidade = $request->privacidade ? 'S' : 'N';
+            $user->lgpd = $request->lgpd ? 'S' : 'N';
 
             if($request->password){
                 $user->password = bcrypt($request->password);

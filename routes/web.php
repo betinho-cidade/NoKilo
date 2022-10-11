@@ -18,8 +18,16 @@ Auth::routes();
 Route::post('/js_viacep', 'Painel\PainelController@js_viacep')->name('painel.js_viacep');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/cliente/{user}', 'Painel\Cadastro\Cliente\ClienteController@show')->name('cliente.show');
+    Route::put('/cliente/{user}/update', 'Painel\Cadastro\Cliente\ClienteController@update')->name('cliente.update');
+    Route::post('/cliente/js_viacep', 'Painel\Cadastro\Cliente\ClienteController@js_viacep')->name('cliente.js_viacep');
 
     Route::get('/logout', 'HomeController@logout')->name('logout');
+});
+
+
+
+Route::middleware(['termo.privacidade', 'auth'])->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
@@ -29,9 +37,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::group(['namespace' => 'Cadastro'], function(){
             Route::group(['namespace' => 'Cliente'], function(){
-                Route::get('/cliente/{user}', 'ClienteController@show')->name('cliente.show');
-                Route::put('/cliente/{user}/update', 'ClienteController@update')->name('cliente.update');
-                Route::post('/cliente/js_viacep', 'ClienteController@js_viacep')->name('cliente.js_viacep');
+                // Route::get('/cliente/{user}', 'ClienteController@show')->name('cliente.show');
+                //Route::post('/cliente/js_viacep', 'ClienteController@js_viacep')->name('cliente.js_viacep');
             });
             Route::group(['namespace' => 'Usuario'], function(){
                 Route::get('/usuario', 'UsuarioController@index')->name('usuario.index');
@@ -96,6 +103,9 @@ Route::group(['namespace' => 'Guest'], function(){
         Route::post('/novo_cliente/create', 'ClienteController@store')->name('cliente.store');
         Route::get('/novo_cliente/bemvindo', 'ClienteController@bemvindo')->name('cliente.bemvindo');
         Route::post('/novo_cliente/js_viacep_new', 'ClienteController@js_viacep_new')->name('cliente.js_viacep_new');
+
+        Route::get('/termos/privacidade', 'ClienteController@termo_privacidade')->name('cliente.termo_privacidade');
+        Route::get('/termos/lgpd', 'ClienteController@termo_lgpd')->name('cliente.termo_lgpd');
     });
 
     Route::group(['namespace' => 'ResetPassword'], function(){

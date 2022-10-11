@@ -20,7 +20,7 @@
         <link href="{{asset('nazox/assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
         <!-- Cityinbag - CSS -->
         <link href="{{asset('css/cityinbag.css')}}" id="app-style" rel="stylesheet" type="text/css" />
-        
+
         <!-- CSS PERSONALIZADO CADASTRO CITYINBAG -->
 
         <style type="text/css">
@@ -32,9 +32,9 @@
 
             body[data-sidebar=dark] .navbar-brand-box {background: #311538;}
             body[data-sidebar=dark] .vertical-menu{background: #3f1a48;}
-        
+
         </style>
-        
+
 
     </head>
 
@@ -294,18 +294,35 @@
                                         </div>
                                     <!-- Dados Pessoais -- FIM -->
 
-                                    <div class="row">
+                                    <div class="row aceites">
                                         <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="invalidCheck" required>
-                                                    <label class="custom-control-label" for="invalidCheck">Aceito os termos e condições acima</label>
-                                                    <div class="invalid-feedback">
-                                                        Você deve aceitar os termos antes de enviar seu cadastro.
-                                                    </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="privacidade" name="privacidade" required>
+                                                <label class="custom-control-label" for="privacidade"></label>
+
+                                                <a href="{{ route('cliente.termo_privacidade') }}" class="stretched-link" target="_blank">
+                                                    <label>Tenho conhecimento e aceito a política de privacidade</label>
+                                                </a>
+
+                                                <div class="invalid-feedback" style="margin: -6px 0 10px 0;">
+                                                    Você deve aceitar os termos da política de privacidade antes de enviar seu cadastro
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="lgpd" name="lgpd">
+                                                <label class="custom-control-label" for="lgpd"></label>
+
+                                                <a href="{{ route('cliente.termo_lgpd') }}" class="stretched-link" target="_blank">
+                                                    <label>Autorizo o tratamento de dados pessoais para marketing de produtos e serviços</label>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                     </div>
                                     <button class="btn btn-primary" type="submit">Salvar Cadastro</button>
                                 </form>

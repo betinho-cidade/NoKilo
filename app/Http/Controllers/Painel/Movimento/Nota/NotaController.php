@@ -121,6 +121,21 @@ class NotaController extends Controller
             return redirect()->route('nota.index');
         }
 
+        $dia_corrente = Carbon::today();
+
+        $qtd_nota_dia = Nota::where('user_id', $user->id)
+                            ->where('promocao_id', $request->promocao)
+                            ->whereDate('created_at', '=', $dia_corrente)
+                            ->count();
+
+        if($qtd_nota_dia >= 3){
+            $message = 'Não foi possível enviar a Nota Fiscal, pois ultrapassou o limite permitido por dia (3 notas)';
+            $request->session()->flash('message.level', 'danger');
+            $request->session()->flash('message.content', $message);
+
+            return redirect()->route('nota.index');
+        }
+
         $message = '';
 
         try {

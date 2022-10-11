@@ -16,7 +16,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password'
+        'password',
+        'privacidade',
     ];
 
     protected $hidden = [
@@ -80,6 +81,16 @@ class User extends Authenticatable
     public function bilhetes()
     {
         return $this->hasMany('App\Models\Bilhete');
+    }
+
+    public function getTermoPrivacidadeAttribute()
+    {
+        return ($this->privacidade && $this->privacidade == 'S') ? 'Sim' : '-';
+    }
+
+    public function getMarketingAttribute()
+    {
+        return ($this->lgpd && $this->lgpd == 'S') ? 'Sim' : '-';
     }
 
     public function rolesAll()

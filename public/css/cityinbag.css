@@ -1,3 +1,7 @@
+.aceites .stretched-link::after {    position: relative;    cursor: pointer;}
+.aceites a, .aceites label {cursor: pointer;}
+
+
 .img-miniatura{max-width: 50px !important;width: auto !important;height: auto !important;}
 .activity-wid .activity-list:last-child {padding-bottom: 30px;}
 .plano-acao-geral{display: flex;}

@@ -112,6 +112,8 @@
                             <th>Nome</th>
                             <th>Login</th>
                             <th style="text-align:center;">Perfil</th>
+                            <th style="text-align:center;">Privacidade</th>
+                            <th style="text-align:center;">Marketing</th>
                             <th style="text-align:center;">Ações</th>
                         </tr>
                         </thead>
@@ -123,6 +125,8 @@
                                 <td>{{$usuario->name}} - {{ $usuario->end_cidade}}/{{ $usuario->end_uf }}</td>
                                 <td>{{$usuario->email}}</td>
                                 <td style="text-align:center;">{{$usuario->perfil}}</td>
+                                <td style="text-align:center;">{{$usuario->termo_privacidade}}</td>
+                                <td style="text-align:center;">{{$usuario->marketing}}</td>
                                 <td style="text-align:center;">
 
                                 @can('edit_usuario')
@@ -148,12 +152,12 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="4">Nenhum registro encontrado. Escolha uma opção no filtro ao lado.</td>
+                                <td colspan="6">Nenhum registro encontrado. Escolha uma opção no filtro ao lado.</td>
                             </tr>
                             @endforelse
                         @else
                             <tr>
-                                <td colspan="4">Nenhum registro encontrado. Escolha uma opção no filtro ao lado.</td>
+                                <td colspan="6">Nenhum registro encontrado. Escolha uma opção no filtro ao lado.</td>
                             </tr>
                         @endif
                         </tbody>

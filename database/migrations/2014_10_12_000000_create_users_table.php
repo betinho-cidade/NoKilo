@@ -27,6 +27,8 @@ class CreateUsersTable extends Migration
             $table->string('end_numero', 20);
             $table->string('end_bairro', 60);
             $table->string('end_complemento', 40)->nullable();
+            $table->enum('lgpd', ['S', 'N'])->nullable();  //S->Sim/Autorizo  N->Não/Não Autorizo
+            $table->enum('privacidade', ['S', 'N'])->nullable();  //S->Sim/Tenho conhecimento  N->Não/Não Tenho conhecimento
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
