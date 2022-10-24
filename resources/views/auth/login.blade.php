@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div class="col-lg-8">
-                        <div class="authentication-bg" style="background-position-x: 90%;">
+                        <div class="authentication-bg" style="background-position-x: 48%;">
                         </div>
                     </div>
                 </div>

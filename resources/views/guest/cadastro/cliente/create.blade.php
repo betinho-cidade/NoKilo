@@ -113,7 +113,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0">E SE A SORTE TE DER UMA CARONA? AGORA FALTA POUCO.</h4>
+                                <h4 class="mb-0">VAI QUE É TUUUA!</h4>
                             </div>
                         </div>
                     </div>
