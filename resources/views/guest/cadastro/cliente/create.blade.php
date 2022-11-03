@@ -203,7 +203,7 @@
                                                     <div class="form-group">
                                                         <label for="end_cep">CEP</label>
                                                         <img src="{{asset('images/loading.gif')}}" id="img-loading-cep" style="display:none;max-width: 17%; margin-left: 26px;">
-                                                        <input type="text" name="end_cep" id="end_cep" class="form-control dynamic_cep mask_cep" value="{{old('end_cep')}}" placeholder="99.999-999" required>
+                                                        <input type="text" name="end_cep" id="end_cep" class="form-control dynamic_cep mask_cep" value="{{old('end_cep')}}" placeholder="99.999-999">
                                                         <div class="valid-feedback">ok!</div>
                                                         <div class="invalid-feedback">Inválido!</div>
                                                         </div>
@@ -211,7 +211,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="end_cidade">Cidade</label>
-                                                        <input type="text" name="end_cidade" id="end_cidade" class="form-control" value="{{old('end_cidade')}}" required>
+                                                        <input type="text" name="end_cidade" id="end_cidade" class="form-control" value="{{old('end_cidade')}}">
                                                         <div class="valid-feedback">ok!</div>
                                                         <div class="invalid-feedback">Inválido!</div>
                                                     </div>
@@ -219,7 +219,7 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="end_uf">Estado</label>
-                                                        <input type="text" name="end_uf" id="end_uf" class="form-control" value="{{old('end_uf')}}" required>
+                                                        <input type="text" name="end_uf" id="end_uf" class="form-control" value="{{old('end_uf')}}">
                                                         <div class="valid-feedback">ok!</div>
                                                         <div class="invalid-feedback">Inválido!</div>
                                                     </div>
@@ -227,7 +227,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="end_bairro">Bairro</label>
-                                                        <input type="text" name="end_bairro" id="end_bairro" class="form-control" value="{{old('end_bairro')}}" required>
+                                                        <input type="text" name="end_bairro" id="end_bairro" class="form-control" value="{{old('end_bairro')}}">
                                                         <div class="valid-feedback">ok!</div>
                                                         <div class="invalid-feedback">Inválido!</div>
                                                     </div>
@@ -238,7 +238,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="end_endereco">Endereço</label>
-                                                        <input type="text" name="end_logradouro" id="end_logradouro" class="form-control" value="{{old('end_logradouro')}}" required>
+                                                        <input type="text" name="end_logradouro" id="end_logradouro" class="form-control" value="{{old('end_logradouro')}}">
                                                         <div class="valid-feedback">ok!</div>
                                                         <div class="invalid-feedback">Inválido!</div>
                                                     </div>
@@ -246,7 +246,7 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="end_numero">Número</label>
-                                                        <input type="text" name="end_numero" id="end_numero" value="{{old('end_numero')}}" class="form-control" required>
+                                                        <input type="text" name="end_numero" id="end_numero" value="{{old('end_numero')}}" class="form-control">
                                                         <div class="valid-feedback">ok!</div>
                                                         <div class="invalid-feedback">Inválido!</div>
                                                     </div>

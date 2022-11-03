@@ -20,12 +20,12 @@ class CreateUsersTable extends Migration
             $table->date('data_nascimento');
             $table->string('celular', 11);
             $table->string('cpf', 11)->unique('user_cpf_uk');
-            $table->string('end_cep', 8);
-            $table->string('end_cidade', 60);
-            $table->string('end_uf', 2);
-            $table->string('end_logradouro', 80);
-            $table->string('end_numero', 20);
-            $table->string('end_bairro', 60);
+            $table->string('end_cep', 8)->nullable();
+            $table->string('end_cidade', 60)->nullable();
+            $table->string('end_uf', 2)->nullable();
+            $table->string('end_logradouro', 80)->nullable();
+            $table->string('end_numero', 20)->nullable();
+            $table->string('end_bairro', 60)->nullable();
             $table->string('end_complemento', 40)->nullable();
             $table->enum('lgpd', ['S', 'N'])->nullable();  //S->Sim/Autorizo  N->Não/Não Autorizo
             $table->enum('privacidade', ['S', 'N'])->nullable();  //S->Sim/Tenho conhecimento  N->Não/Não Tenho conhecimento
