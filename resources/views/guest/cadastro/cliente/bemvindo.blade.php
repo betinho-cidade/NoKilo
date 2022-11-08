@@ -133,10 +133,11 @@
                                 <div class="card-body">
                                 <!-- FORMULÁRIO - INICIO -->
 
-                                <h4 class="card-title">Parabéns !!!</h4>
+                                <h4 class="card-title">Parabéns!!!</h4>
                                 <p class="card-title-desc">A partir de agora você já pode participar das nossas promoções!</p>
 
-                                <p>Acesse ao <a href="{{ route('login') }}">Portal Nokilo</a>, faça seu login e descubra como concorrer a uma moto PCX 0KM! E se a sorte te der uma carona?</p>
+                                <p>Acesse ao <a href="{{ route('login') }}">Portal Nokilo</a>, faça seu login e descubra como concorrer a prêmios incríveis.
+                                <br>Marque um golaço e não perca essa chance!</p>
                                 <a href="{{ route('login') }}" style=" padding: 12px 19px; background: #353535; color: #fff; display: inline-flex; border-radius: 5px; ">Acesso ao Portal</a>
 
                                 </div>

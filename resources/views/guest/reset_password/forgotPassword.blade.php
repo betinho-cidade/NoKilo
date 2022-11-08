@@ -112,7 +112,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0">E SE A SORTE TE DER UMA CARONA? ESQUECEU SUA SENHA... NÃO SE PREOCUPE !!!</h4>
+                                <h4 class="mb-0">Vai que é tuuua!!!! Esqueceu sua senha? Não se preocupe!</h4>
                             </div>
                         </div>
                     </div>
